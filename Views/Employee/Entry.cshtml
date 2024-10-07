@@ -1,0 +1,92 @@
+﻿@using CloudHRMS.Models.ViewModels
+@{
+	var error = (ErrorViewModel)ViewBag.Msg;
+	if (error != null)
+	{
+		if (error.IsOccurError)
+		{
+			<i class="text-danger">
+				@error.Message
+			</i>
+		}
+		else
+		{
+			<i class="text-success">
+				@error.Message
+			</i>
+		}
+
+	}
+
+}
+
+<h1 class="display-1">
+	<i class="fa-solid fa-person"></i>Employee Entry Form
+</h1>
+
+<form action="/employee/entry" method="post">
+	<div class="col-5">
+		<div class="mb-3">
+			<lable for="No" class="form-label">Code</lable>
+			<input type="text" name="No" class="form-control" required placeholder="Enter No" />
+		</div>
+
+		<div class="mb-3">
+			<lable for="FullName" class="form-label">Name</lable>
+			<input type="text" name="FullName" class="form-control" required placeholder="Enter Your Name" />
+		</div>
+		<div class="mb-3">
+			<div class="form-label">Gender</div>
+			<div class="form-check-inline">
+				<input type="radio" value="Male" name="Gender" class="form-check-input" checked />
+				<label for="male" class="form-check-label">Male</label>
+			</div>
+			<div class="form-check-inline">
+				<input type="radio" value="Female" name="Gender" class="form-check-input" />
+				<label for="Female" class="form-check-label">Female</label>
+			</div>
+			<div class="form-check-inline">
+				<input type="radio" value="Other" name="Gender" class="form-check-input" />
+				<label for="Other" class="form-check-label">Other</label>
+			</div>
+
+		</div>
+
+		<div class="mb-3">
+			<lable for="Email" class="form-label">Email</lable>
+			<input type="text" name="Email" class="form-control" required placeholder="Enter Email" />
+		</div>
+
+		<div class="mb-3">
+			<lable for="DOB" class="form-label">Date of Birth</lable>
+			<input type="date" name="DOB" class="form-control" required placeholder="Enter date of birth" />
+		</div>
+		<div class="mb-3">
+			<lable for="DOE" class="form-label">DOE</lable>
+			<input type="date" name="DOE" class="form-control" placeholder="Enter DOE" />
+		</div>
+		<div class="mb-3">
+			<lable for="DOR" class="form-label">DOR</lable>
+			<input type="date" name="DOR" class="form-control" placeholder="Enter DOR" />
+		</div>
+
+		<div class="mb-3">
+			<lable for="Phone" class="form-label">Phone</lable>
+			<input type="text" name="Phone" class="form-control" required placeholder="Enter phone Number" />
+		</div>
+
+		<div class="mb-3">
+			<lable for="Salary" class="form-label">Salay</lable>
+			<input type="number" name="Salary" class="form-control" required />
+		</div>
+
+		<div class="mb-3">
+			<lable for="Address" class="form-label">Address</lable>
+			<textarea name="Address" rows="3" class="form-control" required placeholder="Enter Address"></textarea>
+		</div>
+	</div>
+	
+	<button type="submit" class="btn btn-primary">Save</button>
+
+</form>
+

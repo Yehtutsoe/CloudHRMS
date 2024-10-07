@@ -1,0 +1,92 @@
+﻿@model EmployeeViewModel
+
+@{
+	if (TempData["Msg"] != null)
+	{
+		if (Convert.ToBoolean(TempData["IsOccourError"]))
+		{
+			<i class="text-danger">
+				@TempData["Msg"]
+			</i>
+		}
+		else
+		{
+			<i class="text-success">
+				@TempData["Msg"]
+			</i>
+		}
+
+	}
+}
+
+<h1 class="display-1">
+	<i class="fa-solid fa-person"></i>Employee Edit Form
+</h1>
+
+<form action="/employee/Update" method="post">
+	<div class="mb-3">
+		<input type="hidden" value="@Model.Id" name="Id" class="form-control" />
+	</div>
+
+	<div class="mb-3">
+		<lable for="No" class="form-label">Employee No</lable>
+		<input type="text" name="No" value="@Model.No" class="form-control" required placeholder="Enter No" />
+	</div>
+
+	<div class="mb-3">
+		<lable for="FullName" class="form-label">Full Name</lable>
+		<input type="text" name="FullName" value="@Model.FullName" class="form-control" required placeholder="Enter Your Name" />
+	</div>
+	<div class="mb-3">
+		<div class="form-label">Gender</div>
+		<div class="form-check-inline">
+			<input type="radio" value="Male" (@Model.Gender =="Male" ? "checked" : "" ) name="Gender" class="form-check-input" />
+			<label for="male" class="form-check-label">Male</label>
+		</div>
+		<div class="form-check-inline">
+			<input type="radio" value="Female" (@Model.Gender =="FeMale" ? "checked" : "" ) name="Gender" class="form-check-input" />
+			<label for="Female" class="form-check-label">Female</label>
+		</div>
+		<div class="form-check-inline">
+			<input type="radio" value="Other" (@Model.Gender =="Other" ? "checked" : "" ) name="Gender" class="form-check-input" />
+			<label for="Other" class="form-check-label">Other</label>
+		</div>
+
+	</div>
+
+	<div class="mb-3">
+		<lable for="Email" class="form-label">Email</lable>
+		<input type="text" name="Email" value="@Model.Email" class="form-control" required placeholder="Enter Email" />
+	</div>
+
+	<div class="mb-3">
+		<lable for="DOB" class="form-label">Date of Birth</lable>
+		<input type="date" name="DOB" value="@Model.DOB.ToString("dd-MM-yyyy")" class="form-control" required placeholder="Enter date of birth" />
+	</div>
+	<div class="mb-3">
+		<lable for="DOE" class="form-label">DOE</lable>
+		<input type="date" name="DOE" value="@Model.DOE?.ToString("dd-MM-yyyy")" class="form-control" placeholder="Enter DOE" />
+	</div>
+	<div class="mb-3">
+		<lable for="DOR" class="form-label">DOR</lable>
+		<input type="date" name="DOR" value="@Model.DOR?.ToString("dd-MM-yyyy")" class="form-control" placeholder="Enter DOR" />
+	</div>
+
+	<div class="mb-3">
+		<lable for="Phone" class="form-label">Phone</lable>
+		<input type="text" name="Phone" value="@Model.Phone" class="form-control" required placeholder="Enter phone Number" />
+	</div>
+
+	<div class="mb-3">
+		<lable for="Salary" class="form-label">Salay</lable>
+		<input type="number" name="Salary" value="@Model.Salary" class="form-control" required />
+	</div>
+
+	<div class="mb-3">
+		<lable for="Address" class="form-label">Address</lable>
+		<textarea name="Address" rows="3" value="@Model.Address" class="form-control" required placeholder="Enter Address"></textarea>
+	</div>
+
+	<button type="submit" class="btn btn-outline-primary">Update</button>
+	<a href="/employee/list" class="btn btn-warning">Cancel</a>
+</form>
