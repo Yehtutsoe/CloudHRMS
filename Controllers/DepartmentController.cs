@@ -9,6 +9,8 @@ namespace CloudHRMS.Controllers
 	{
 		private readonly ApplicationDbContext _applicationDbContext;
 
+		ErrorViewModel error = new ErrorViewModel();
+
         public DepartmentController(ApplicationDbContext applicationDbContext)
         {
 			_applicationDbContext = applicationDbContext;
@@ -22,15 +24,20 @@ namespace CloudHRMS.Controllers
 		[HttpPost]
 		public IActionResult DepartmentEntry(DepartmentViewModel departmentViewModel)
 		{
-			var error = new ErrorViewModel();
+
 			try
 			{
 				DepartmentEntity departmentEntity = new DepartmentEntity()
 				{
-					Id =Guid.NewGuid().ToString(),
+					Id = Guid.NewGuid().ToString(),
 					Code = departmentViewModel.Code,
 					Description = departmentViewModel.Description,
-					ExtensionPhone = departmentViewModel.ExtensionPhone
+					ExtensionPhone = departmentViewModel.ExtensionPhone,
+					IsActive = true,
+					IpAddress = GetIpAddressofMachine(),
+					CreatedAt = DateTime.Now,
+					CreatedBy = "System"
+
 				};
 				_applicationDbContext.Departments.Add(departmentEntity);
 				_applicationDbContext.SaveChanges();
@@ -45,6 +52,11 @@ namespace CloudHRMS.Controllers
 			ViewBag.Msg = error;
 
 			return View();
+		}
+
+		public string GetIpAddressofMachine()
+		{
+			return HttpContext.Connection.RemoteIpAddress.ToString();
 		}
 	}
 }

@@ -34,7 +34,8 @@ namespace CloudHRMS.Controllers
 					Level = positionViewModel.Level,
 					CreatedAt = DateTime.Now,
 					CreatedBy = "System",
-					IsActive =true
+					IsActive = true,
+					IpAddress = GetIpAddressofMachine()
 				};
 				_applicationDbContext.Positions.Add(positionEntity);
 				_applicationDbContext.SaveChanges();
@@ -45,7 +46,7 @@ namespace CloudHRMS.Controllers
 				error.Message = "Error Occur";
 				error.IsOccurError = true;
 			}
-			ViewBag.Message = error;
+			ViewBag.Msg = error;
 			return View();
 		}
 
@@ -61,6 +62,11 @@ namespace CloudHRMS.Controllers
 																									
 												}).ToList();
 			return View(positions);
+		}
+
+		public string GetIpAddressofMachine()
+		{
+			return HttpContext.Connection.RemoteIpAddress.ToString();
 		}
 	}
 }
