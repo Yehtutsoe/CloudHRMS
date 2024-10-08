@@ -25,6 +25,10 @@
 				<td>@position.Code</td>
 				<td>@position.Description</td>
 				<td>@position.Level</td>
+				<td>
+					<a href="/position/Edit?id=@position.Id" class="btn btn-success">Edit</a>
+					<a href="/position/Delete?id=@position.Id" class="btn btn-danger">Delete</a>
+				</td>
 			</tr>
 			i++;
 		}

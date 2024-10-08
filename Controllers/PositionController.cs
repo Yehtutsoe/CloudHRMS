@@ -64,6 +64,21 @@ namespace CloudHRMS.Controllers
 			return View(positions);
 		}
 
+		public IActionResult Edit(string Id)
+
+		{
+			var position = _applicationDbContext.Positions
+							.Where(p => p.Id == Id)
+							.Select(s => new PositionViewModel
+							{
+								Id = s.Id,
+								Code = s.Code,
+								Description = s.Description,
+								Level = s.Level
+							}).SingleOrDefault();
+			return View(position);
+		}
+
 		public string GetIpAddressofMachine()
 		{
 			return HttpContext.Connection.RemoteIpAddress.ToString();

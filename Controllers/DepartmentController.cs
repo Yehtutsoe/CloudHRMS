@@ -2,6 +2,7 @@
 using CloudHRMS.Models.Entities;
 using CloudHRMS.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel;
 
 namespace CloudHRMS.Controllers
 {
@@ -46,12 +47,41 @@ namespace CloudHRMS.Controllers
 			catch (Exception ex)
 			{
 
-				error.Message = "Transaction not save,found error";
+				error.Message = "Transaction not save,found error" + ex;
 				error.IsOccurError = true;
 			}
 			ViewBag.Msg = error;
 
 			return View();
+		}
+
+		public IActionResult List()
+		{
+			IList<DepartmentViewModel> departments = _applicationDbContext.Departments
+														.Where(w => w.IsActive)
+														.Select(s => new DepartmentViewModel
+														{
+															Id = s.Id,
+															Code = s.Code,
+															Description = s.Description,
+															ExtensionPhone = s.ExtensionPhone,
+															
+
+														}).ToList();
+			return View(departments);
+		}
+
+		public IActionResult Edit(string Id)
+		{
+			var department = _applicationDbContext.Departments.Where(w => w.Id == Id).Select(s => new DepartmentViewModel
+			{
+				Id = s.Id,
+				Code = s.Code,
+				Description = s.Description,
+				ExtensionPhone = s.ExtensionPhone
+
+			}).SingleOrDefault();
+			return View(department);
 		}
 
 		public string GetIpAddressofMachine()
