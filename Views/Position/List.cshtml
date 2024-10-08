@@ -1,5 +1,23 @@
 ﻿@model IList<PositionViewModel>
 
+@{
+	if (TempData["Msg"] != null)
+	{
+		if (Convert.ToBoolean(TempData["IsOccourError"]))
+		{
+
+						<div class="alert alert-danger">
+				@TempData["Msg"]
+						</div>
+		}
+		else
+		{
+						<div class="alert alert-danger">
+				@TempData["Msg"]
+						</div>
+		}
+	}
+}
 
 <h1>Positon List Information</h1>
 <table class="table">

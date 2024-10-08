@@ -1,16 +1,21 @@
 ﻿@model PositionViewModel
 
 @{
-	if(TempData["Msg"] != null)
+	if (TempData["Msg"] != null)
 	{
 		if (Convert.ToBoolean(TempData["IsOccourError"]))
 		{
-			<div class="btn btn-danger">@TempData["Msg"]</div>
+			<i class="text-danger">
+				@TempData["Msg"]
+			</i>
 		}
 		else
 		{
-			<div class="btn btn-success">@TempData["Msg"]</div>
+			<i class="text-success">
+				@TempData["Msg"]
+			</i>
 		}
+
 	}
 }
 
@@ -34,6 +39,7 @@
 		<label for="Level" class="form-label">Level</label>
 		<input type="number" value="@Model.Level" name="Code" class="form-control" />
 	</div>
-	<button type="submit" class="btn btn-success">Save</button>
+	<button type="submit" class="btn btn-success">Update</button>
+	<a href="/employee/list" class="btn btn-warning">Cancel</a>
 
 </form>

@@ -88,7 +88,11 @@ namespace CloudHRMS.Controllers
 					Id = positionViewModel.Id,
 					Code = positionViewModel.Code,
 					Description = positionViewModel.Description,
-					Level = positionViewModel.Level
+					Level = positionViewModel.Level,
+					CreatedAt = DateTime.Now,
+					CreatedBy = "System",
+					IsActive = true,
+					IpAddress = GetIpAddressofMachine()
 				};
 				_applicationDbContext.Positions.Update(positions);
 				_applicationDbContext.SaveChanges();
