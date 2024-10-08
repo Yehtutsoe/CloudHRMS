@@ -44,10 +44,10 @@ namespace CloudHRMS.Controllers
 				_applicationDbContext.SaveChanges();
 				error.Message = "Transaction save successful to the System";
 			}
-			catch (Exception ex)
+			catch
 			{
 
-				error.Message = "Transaction not save,found error" + ex;
+				error.Message = "Transaction not save,found error";
 				error.IsOccurError = true;
 			}
 			ViewBag.Msg = error;
@@ -83,7 +83,59 @@ namespace CloudHRMS.Controllers
 			}).SingleOrDefault();
 			return View(department);
 		}
+		[HttpPost]
+		public IActionResult Update(DepartmentViewModel departmentViewModel)
+		{
+			try
+			{
+				DepartmentEntity departments = new DepartmentEntity()
+				{
+					Id = departmentViewModel.Id,
+					Code = departmentViewModel.Code,
+					Description = departmentViewModel.Description,
+					ExtensionPhone = departmentViewModel.ExtensionPhone,
+					CreatedBy = "system",
+					CreatedAt = DateTime.Now,
+					IsActive = true,
+					IpAddress = GetIpAddressofMachine()
 
+				};
+				_applicationDbContext.Departments.Update(departments);
+				_applicationDbContext.SaveChanges();
+				TempData["Msg"] = "Successful update to the system";
+				TempData["IsOccourError"] = false;
+			}
+			catch
+			{
+				TempData["Msg"] = "Error Occour";
+				TempData["IsOccourError"] = true;
+				
+			}
+			
+			return RedirectToAction("List");
+		}
+
+		public IActionResult Delete(string Id)
+		{
+			try
+			{
+				var existingDepartments = _applicationDbContext.Departments.Where(w => w.Id == Id).SingleOrDefault();
+				if (existingDepartments is not null)
+				{
+					existingDepartments.IsActive = false;
+					_applicationDbContext.Update(existingDepartments);
+					_applicationDbContext.SaveChanges();
+					TempData["Msg"] = "Successful Delete from the system";
+					TempData["IsOccourError"] = false;
+				}
+			}
+			catch 
+			{
+				TempData["Msg"] = "Error Occour";
+				TempData["IsOccourError"] = true;
+			}
+			return RedirectToAction("List");
+		}
 		public string GetIpAddressofMachine()
 		{
 			return HttpContext.Connection.RemoteIpAddress.ToString();

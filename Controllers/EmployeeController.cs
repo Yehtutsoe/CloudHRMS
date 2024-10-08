@@ -51,7 +51,7 @@ namespace CloudHRMS.Controllers
 				error.Message = "Successfully Save the record to the system";
 				
 			}
-			catch (Exception ex)
+			catch
 			{
 
 				error.Message = "Oh,Error occur when Saving the record to the system";

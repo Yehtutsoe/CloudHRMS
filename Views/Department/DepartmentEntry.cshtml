@@ -6,11 +6,11 @@
 	{
 		if (error.IsOccurError)
 		{
-			<i class="text-danger">@error</i>
+			<i class="text-danger">@error.Message</i>
 		}
 		else
 		{
-			<i class="text-success">@error</i>
+			<i class="text-success">@error.Message</i>
 		}
 	}
 }

@@ -1,0 +1,46 @@
+﻿@model DepartmentViewModel
+
+@{
+	if (TempData["Msg"] != null)
+	{
+		if (Convert.ToBoolean(TempData["IsOccourError"]))
+		{
+			<i class="text-danger">
+				@TempData["Msg"]
+			</i>
+		}
+		else
+		{
+			<i class="text-success">
+				@TempData["Msg"]
+			</i>
+		}
+
+	}
+}
+
+<h1 class="display-2">Department Update Form</h1>
+
+<form action="/department/Update" method="post">
+	<div class="col-5">
+		<div class="mb-3">
+			<input type="hidden" value="@Model.Id" name="Id" class="form-control">
+		</div>
+		<div class="mb-3">
+			<label for="Code" class="from-label">Code</label>
+			<input type="text" value="@Model.Code" name="Code" class="form-control" placeholder="Enter Code">
+		</div>
+
+		<div class="mb-3">
+			<label for="Description" class="from-label">Description</label>
+			<input type="text" value="@Model.Description" name="Description" class="form-control" placeholder="Enter Description">
+		</div>
+		<div class="mb-3">
+			<label for="ExtensionPhone" class="from-label">ExtensionPhone</label>
+			<input type="text" value="@Model.ExtensionPhone" name="ExtensionPhone" class="form-control" placeholder="Enter ExtensionPhone">
+		</div>
+	</div>
+
+	<button type="submit" class="btn btn-primary mb-3">Save</button>
+
+</form>
