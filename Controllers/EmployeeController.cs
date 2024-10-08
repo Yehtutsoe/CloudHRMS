@@ -159,7 +159,7 @@ namespace CloudHRMS.Controllers
 			catch
 			{
 
-				TempData["Msg"] = "Error Occour " + e;
+				TempData["Msg"] = "Error Occour ";
 				TempData["IsOccourError"] = true;
 			}
 				return RedirectToAction("List");
