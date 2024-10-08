@@ -98,7 +98,7 @@ namespace CloudHRMS.Controllers
 					TempData["IsOccourError"] = false;
 				}
 			}
-			catch (Exception e)
+			catch
 			{
 
 				TempData["Msg"] = "Error Occour ";
@@ -156,7 +156,7 @@ namespace CloudHRMS.Controllers
 				TempData["IsOccourError"] = false;
 			}
 			
-			catch (Exception e)
+			catch
 			{
 
 				TempData["Msg"] = "Error Occour " + e;

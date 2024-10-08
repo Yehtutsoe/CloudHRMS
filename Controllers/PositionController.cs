@@ -41,7 +41,7 @@ namespace CloudHRMS.Controllers
 				_applicationDbContext.SaveChanges();
 				error.Message = "Successful save the record to the system ";
 			}
-			catch (Exception ex)
+			catch
 			{
 				error.Message = "Error Occur";
 				error.IsOccurError = true;
@@ -77,6 +77,55 @@ namespace CloudHRMS.Controllers
 								Level = s.Level
 							}).SingleOrDefault();
 			return View(position);
+		}
+		[HttpPost]
+		public IActionResult Update(PositionViewModel positionViewModel)
+		{
+			try
+			{
+				PositionEntity positions = new PositionEntity()
+				{
+					Id = positionViewModel.Id,
+					Code = positionViewModel.Code,
+					Description = positionViewModel.Description,
+					Level = positionViewModel.Level
+				};
+				_applicationDbContext.Positions.Update(positions);
+				_applicationDbContext.SaveChanges();
+				TempData["Msg"] = "Successful update to sytem";
+				TempData["IsOccourError"] = false;
+			}
+			catch (Exception)
+			{
+				TempData["Msg"] = "Error Occour";
+				TempData["Msg"] = true;
+				
+			}
+			return RedirectToAction("List");
+		}
+
+		public IActionResult Delete(string Id)
+		{
+			try
+			{
+				var existingPosition = _applicationDbContext.Positions.Where(w => w.Id == Id).SingleOrDefault();
+				if (existingPosition != null)
+				{
+					existingPosition.IsActive = false;
+					_applicationDbContext.Update(existingPosition);
+					_applicationDbContext.SaveChanges();
+					TempData["Msg"] = "Successful Delete from System";
+					TempData["IsOccourError"] = false;
+					
+				}
+			}
+			catch (Exception)
+			{
+
+				TempData["Msg"] = "Error Occour";
+				TempData["IsOccourError"] = true;
+			}
+			return RedirectToAction("List");
 		}
 
 		public string GetIpAddressofMachine()
