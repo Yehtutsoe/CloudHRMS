@@ -22,5 +22,13 @@ namespace CloudHRMS.Models.Entities
         public DateTime? DOR { get; set; } // Date of retire
         public string Address { get; set; }
 
+        public string DepartmentId { get; set; }
+        [ForeignKey(nameof(DepartmentId))]
+        public DepartmentEntity Department { get; set; }
+
+        public string PositionId { get; set; }
+        [ForeignKey(nameof(PositionId))]
+        public PositionEntity Position { get; set; }
+
     }
 }

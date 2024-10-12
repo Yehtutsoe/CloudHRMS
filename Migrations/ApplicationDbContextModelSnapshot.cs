@@ -89,6 +89,10 @@ namespace CloudHRMS.Migrations
                     b.Property<DateTime?>("DOR")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("DepartmentId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -99,7 +103,8 @@ namespace CloudHRMS.Migrations
 
                     b.Property<string>("Gender")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(6)
+                        .HasColumnType("nvarchar(6)");
 
                     b.Property<string>("IpAddress")
                         .IsRequired()
@@ -114,9 +119,15 @@ namespace CloudHRMS.Migrations
 
                     b.Property<string>("Phone")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(12)
+                        .HasColumnType("nvarchar(12)");
+
+                    b.Property<string>("PositionId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<decimal>("Salary")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<DateTime?>("UpdatedAt")
@@ -126,6 +137,10 @@ namespace CloudHRMS.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("DepartmentId");
+
+                    b.HasIndex("PositionId");
 
                     b.ToTable("Employee");
                 });
@@ -169,6 +184,25 @@ namespace CloudHRMS.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Position");
+                });
+
+            modelBuilder.Entity("CloudHRMS.Models.Entities.EmployeeEntity", b =>
+                {
+                    b.HasOne("CloudHRMS.Models.Entities.DepartmentEntity", "Department")
+                        .WithMany()
+                        .HasForeignKey("DepartmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CloudHRMS.Models.Entities.PositionEntity", "Position")
+                        .WithMany()
+                        .HasForeignKey("PositionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Department");
+
+                    b.Navigation("Position");
                 });
 #pragma warning restore 612, 618
         }
