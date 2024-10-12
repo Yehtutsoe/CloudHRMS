@@ -2,6 +2,11 @@
 using CloudHRMS.Models.ViewModels;
 using CloudHRMS.DAO;
 using CloudHRMS.Models.Entities;
+using Microsoft.AspNetCore.Http.HttpResults;
+using System.Net;
+using System.Numerics;
+using System.Reflection;
+using CloudHRMS.Utility.Network;
 
 namespace CloudHRMS.Controllers
 {
@@ -131,32 +136,30 @@ namespace CloudHRMS.Controllers
 		{
 			try
 			{
-				EmployeeEntity employeeEntity = new EmployeeEntity()
-				{
-					Id = employeeViewModel.Id,
-					No = employeeViewModel.No,
-					FullName = employeeViewModel.FullName,
-					Gender = employeeViewModel.Gender,
-					DOB = employeeViewModel.DOB,
-					DOE = employeeViewModel.DOE,
-					Phone = employeeViewModel.Phone,
-					Address = employeeViewModel.Address,
-					Salary = employeeViewModel.Salary,
-					Email = employeeViewModel.Email,
-					DOR = employeeViewModel.DOR,
-					CreatedAt = DateTime.Now,
-					CreatedBy = "System",
-					IsActive = true,
-					IpAddress = GetIpAddressofMachine()
-				};
+				var existingEmployeeEntity = _applicationDbContext.Employees.Find(employeeViewModel.Id);
 
-				_applicationDbContext.Employees.Update(employeeEntity);
+				existingEmployeeEntity.No = employeeViewModel.No;
+				existingEmployeeEntity.FullName = employeeViewModel.FullName;
+				existingEmployeeEntity.Gender = employeeViewModel.Gender;
+				existingEmployeeEntity.DOB = employeeViewModel.DOB;
+				existingEmployeeEntity.DOE = employeeViewModel.DOE;
+				existingEmployeeEntity.Phone = employeeViewModel.Phone;
+				existingEmployeeEntity.Address = employeeViewModel.Address;
+				existingEmployeeEntity.Salary = employeeViewModel.Salary;
+				existingEmployeeEntity.Email = employeeViewModel.Email;
+				existingEmployeeEntity.DOR = employeeViewModel.DOR;
+				existingEmployeeEntity.CreatedAt = DateTime.Now;
+				existingEmployeeEntity.CreatedBy = "System";
+				existingEmployeeEntity.IsActive = true;
+				existingEmployeeEntity.IpAddress = NetworkHelper.GetMechinePublicIP();
+
+				_applicationDbContext.Employees.Update(existingEmployeeEntity);
 				_applicationDbContext.SaveChanges();
 				TempData["Msg"] = "Successful Updated the record to the system";
 				TempData["IsOccourError"] = false;
 			}
 			
-			catch
+			catch(Exception)
 			{
 
 				TempData["Msg"] = "Error Occour ";
