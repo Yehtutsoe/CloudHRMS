@@ -18,7 +18,7 @@ namespace CloudHRMS.Controllers
 			_applicationDbContext = applicationDbContext;
         }
 
-        public IActionResult DepartmentEntry()
+        public IActionResult Entry()
 		{
 			return View();
 		}

@@ -16,14 +16,14 @@ namespace CloudHRMS.Controllers
         {
 			_applicationDbContext = applicationDbContext;
         }
-        public IActionResult PositionEntry()
+        public IActionResult Entry()
 
 		{
 			return View();
 		}
 
 		[HttpPost]
-		public IActionResult PositionEntry(PositionViewModel positionViewModel)
+		public IActionResult Entry(PositionViewModel positionViewModel)
 		{
 			var isAlreadyExist = _applicationDbContext.Positions.Where(w => w.Code == positionViewModel.Code).Any();
 			if (isAlreadyExist) {
