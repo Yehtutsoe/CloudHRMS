@@ -1,6 +1,7 @@
 ﻿using CloudHRMS.DAO;
 using CloudHRMS.Models.Entities;
 using CloudHRMS.Models.ViewModels;
+using CloudHRMS.Utility.Network;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CloudHRMS.Controllers
@@ -24,6 +25,11 @@ namespace CloudHRMS.Controllers
 		[HttpPost]
 		public IActionResult PositionEntry(PositionViewModel positionViewModel)
 		{
+			var isAlreadyExist = _applicationDbContext.Positions.Where(w => w.Code == positionViewModel.Code).Any();
+			if (isAlreadyExist) {
+				error.Message = $"This code {isAlreadyExist} is in this system,please try another";
+				return View();
+			}
 			try
 			{
 				PositionEntity positionEntity = new PositionEntity()
@@ -83,18 +89,18 @@ namespace CloudHRMS.Controllers
 		{
 			try
 			{
-				PositionEntity positions = new PositionEntity()
-				{
-					Id = positionViewModel.Id,
-					Code = positionViewModel.Code,
-					Description = positionViewModel.Description,
-					Level = positionViewModel.Level,
-					CreatedAt = DateTime.Now,
-					CreatedBy = "System",
-					IsActive = true,
-					IpAddress = GetIpAddressofMachine()
-				};
-				_applicationDbContext.Positions.Update(positions);
+				var existingPositionEntity = _applicationDbContext.Positions.Find(positionViewModel.Id);
+
+
+				existingPositionEntity.Code = positionViewModel.Code;
+				existingPositionEntity.Description = positionViewModel.Description;
+				existingPositionEntity.Level = positionViewModel.Level;
+				existingPositionEntity.CreatedAt = DateTime.Now;
+				existingPositionEntity.CreatedBy = "System";
+				existingPositionEntity.IsActive = true;
+				existingPositionEntity.IpAddress = NetworkHelper.GetMechinePublicIP();
+
+				_applicationDbContext.Positions.Update(existingPositionEntity);
 				_applicationDbContext.SaveChanges();
 				TempData["Msg"] = "Successful update to sytem";
 				TempData["IsOccourError"] = false;

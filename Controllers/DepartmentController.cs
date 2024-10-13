@@ -1,6 +1,7 @@
 ﻿using CloudHRMS.DAO;
 using CloudHRMS.Models.Entities;
 using CloudHRMS.Models.ViewModels;
+using CloudHRMS.Utility.Network;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel;
 
@@ -23,9 +24,14 @@ namespace CloudHRMS.Controllers
 		}
 
 		[HttpPost]
-		public IActionResult DepartmentEntry(DepartmentViewModel departmentViewModel)
+		public IActionResult Entry(DepartmentViewModel departmentViewModel)
 		{
-
+			var isAlreadyExist = _applicationDbContext.Departments.Where(w => w.Code == departmentViewModel.Code).Any();
+			if (isAlreadyExist)
+			{
+				error.Message = $"This code {isAlreadyExist} is already exist in the system try another";
+				return View();
+			}
 			try
 			{
 				DepartmentEntity departmentEntity = new DepartmentEntity()
@@ -35,7 +41,7 @@ namespace CloudHRMS.Controllers
 					Description = departmentViewModel.Description,
 					ExtensionPhone = departmentViewModel.ExtensionPhone,
 					IsActive = true,
-					IpAddress = GetIpAddressofMachine(),
+					IpAddress = NetworkHelper.GetMechinePublicIP(),
 					CreatedAt = DateTime.Now,
 					CreatedBy = "System"
 
@@ -88,19 +94,15 @@ namespace CloudHRMS.Controllers
 		{
 			try
 			{
-				DepartmentEntity departments = new DepartmentEntity()
-				{
-					Id = departmentViewModel.Id,
-					Code = departmentViewModel.Code,
-					Description = departmentViewModel.Description,
-					ExtensionPhone = departmentViewModel.ExtensionPhone,
-					CreatedBy = "system",
-					CreatedAt = DateTime.Now,
-					IsActive = true,
-					IpAddress = GetIpAddressofMachine()
-
-				};
-				_applicationDbContext.Departments.Update(departments);
+				var existingDepartmentEntity = _applicationDbContext.Departments.Find(departmentViewModel.Id);
+				existingDepartmentEntity.Code = departmentViewModel.Code;
+				existingDepartmentEntity.Description = departmentViewModel.Description;
+				existingDepartmentEntity.ExtensionPhone = departmentViewModel.ExtensionPhone;
+				existingDepartmentEntity.CreatedBy = "system";
+				existingDepartmentEntity.CreatedAt = DateTime.Now;
+				existingDepartmentEntity.IsActive = true;
+				existingDepartmentEntity.IpAddress = NetworkHelper.GetMechinePublicIP();
+				_applicationDbContext.Departments.Update(existingDepartmentEntity);
 				_applicationDbContext.SaveChanges();
 				TempData["Msg"] = "Successful update to the system";
 				TempData["IsOccourError"] = false;
@@ -136,9 +138,6 @@ namespace CloudHRMS.Controllers
 			}
 			return RedirectToAction("List");
 		}
-		public string GetIpAddressofMachine()
-		{
-			return HttpContext.Connection.RemoteIpAddress.ToString();
-		}
+		
 	}
 }

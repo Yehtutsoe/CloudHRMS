@@ -23,12 +23,24 @@ namespace CloudHRMS.Controllers
         }
         public IActionResult Entry()
 		{
-			return View();
+			var employeeViewModel = new EmployeeViewModel();
+			employeeViewModel.DepartmentsViewModel = _applicationDbContext.Departments.Where(w => w.IsActive).Select(s => new DepartmentViewModel
+			{
+				Id = s.Id,
+				Code = s.Code
+			}).ToList();
+			employeeViewModel.PositionsViewModel = _applicationDbContext.Positions.Where(w => w.IsActive).Select(s => new PositionViewModel
+			{
+				Id = s.Id,
+				Code = s.Code
+			}).ToList();
+			return View(employeeViewModel);
 		}
 
 		[HttpPost]
 		public IActionResult Entry(EmployeeViewModel employeeViewModel)
 		{
+
 			
 			try
 			{
