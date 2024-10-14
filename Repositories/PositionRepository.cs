@@ -10,10 +10,10 @@ namespace CloudHRMS.Repositories
 	{
 		private readonly ApplicationDbContext _applicationDbContext;
 
-        public PositionRepository(ApplicationDbContext applicationDbContext)
-        {
+		public PositionRepository(ApplicationDbContext applicationDbContext)
+		{
 			_applicationDbContext = applicationDbContext;
-        }
+		}
 		public void Create(PositionViewModel positionView)
 		{
 			try
@@ -103,8 +103,11 @@ namespace CloudHRMS.Repositories
 				_applicationDbContext.Positions.Update(existingPositionEntity);
 				_applicationDbContext.SaveChanges();
 			}
-			catch (Exception ex) {
+			catch (Exception ex)
+			{
 				throw ex;
 			}
+		}
 	}
+
 }
