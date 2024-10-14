@@ -31,9 +31,9 @@ namespace CloudHRMS.Controllers
 				error.IsOccurError = true;
 			}
 			ViewBag.Msg = error;
-			return View();
+			return RedirectToAction("List");
 		}
-		public IActionResult List()=>View();
+		public IActionResult List()=>View(_positionService.RetireveAll());
 		public IActionResult Edit(string Id)=>View(_positionService.GetById(Id));
 		[HttpPost]
 		public IActionResult Update(PositionViewModel positionViewModel)
