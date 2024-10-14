@@ -26,10 +26,10 @@ namespace CloudHRMS.Controllers
 		[HttpPost]
 		public IActionResult Entry(DepartmentViewModel departmentViewModel)
 		{
-			var isAlreadyExist = _applicationDbContext.Departments.Where(w => w.Code == departmentViewModel.Code).Any();
-			if (isAlreadyExist)
+			var isAlreadyExistCode = _applicationDbContext.Departments.Where(w => w.Code == departmentViewModel.Code).Any();
+			if (isAlreadyExistCode)
 			{
-				error.Message = $"This code {isAlreadyExist} is already exist in the system try another";
+				error.Message = $"This code {isAlreadyExistCode} is already exist in the system try another";
 				return View();
 			}
 			try

@@ -40,15 +40,15 @@
 	<div class="mb-3">
 		<div class="form-label">Gender</div>
 		<div class="form-check-inline">
-			<input type="radio" value="Male" @(Model.Gender == "Male" ? "checked" : "" ) name="Gender" class="form-check-input" />
+			<input type="radio" value="Male" @(Model.Gender == "Male" ? "checked" : null ) name="Gender" class="form-check-input" />
 			<label for="male" class="form-check-label">Male</label>
 		</div>
 		<div class="form-check-inline">
-			<input type="radio" value="Female" @(Model.Gender == "FeMale" ? "checked" : "" ) name="Gender" class="form-check-input" />
+			<input type="radio" value="Female" @(Model.Gender == "FeMale" ? "checked" : null ) name="Gender" class="form-check-input" />
 			<label for="Female" class="form-check-label">Female</label>
 		</div>
 		<div class="form-check-inline">
-			<input type="radio" value="Other" @(Model.Gender == "Other" ? "checked" : "" ) name="Gender" class="form-check-input" />
+			<input type="radio" value="Other" @(Model.Gender == "Other" ? "checked" : null ) name="Gender" class="form-check-input" />
 			<label for="Other" class="form-check-label">Other</label>
 		</div>
 

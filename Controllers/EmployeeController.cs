@@ -60,7 +60,9 @@ namespace CloudHRMS.Controllers
 					CreatedAt = DateTime.Now,
 					CreatedBy = "System",
 					IsActive = true,
-					IpAddress = GetIpAddressofMachine()
+					IpAddress = NetworkHelper.GetMechinePublicIP(),
+					DepartmentId = employeeViewModel.DepartmentId,
+					PositionId = employeeViewModel.PositionId
 				};
 
 				_applicationDbContext.Employees.Add(employeeEntity);
@@ -180,9 +182,5 @@ namespace CloudHRMS.Controllers
 				return RedirectToAction("List");
 		}
 
-		public string GetIpAddressofMachine()
-		{
-			return HttpContext.Connection.RemoteIpAddress.ToString();
-		}
 	}
 }
