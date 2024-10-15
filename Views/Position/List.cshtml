@@ -9,19 +9,20 @@
 	{
 		if (Convert.ToBoolean(TempData["IsOccourError"]))
 		{
-						<div class="alert alert-danger">
+			<div class="alert alert-danger">
 				@TempData["Msg"]
-						</div>
+			</div>
 		}
 		else
 		{
-						<div class="alert alert-danger">
+			<div class="alert alert-danger">
 				@TempData["Msg"]
-						</div>
+			</div>
 		}
 	}
 }
 <h1>Positon List Information</h1>
+<a href="/position/entry" class="btn btn-success mb-3">Create</a>
 <table class="table table-hover" id="positionTable">
 
 	<thead class="table-dark">

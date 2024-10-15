@@ -12,8 +12,13 @@ var config = builder.Configuration; //declare the configure to read json
 //add the dbContext that we defined the ApplicationDbContext to get connestion string
 builder.Services.AddDbContext<ApplicationDbContext>(option =>option
 															.UseSqlServer(config.GetConnectionString("CloudHRMSConnectionString")));
+// Declare Service and repository Interface
 builder.Services.AddScoped<IPositionService, PositionService>();
 builder.Services.AddScoped<IPositionRepository, PositionRepository>();
+builder.Services.AddScoped<IDepartmentService, DepartmentService>();
+builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
+builder.Services.AddScoped<IEmployeeService, EmployeeService>();
+builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

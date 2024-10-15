@@ -1,24 +1,20 @@
-﻿using CloudHRMS.DAO;
-using CloudHRMS.Models.Entities;
-using CloudHRMS.Models.ViewModels;
-using CloudHRMS.Utility.Network;
+﻿using CloudHRMS.Models.ViewModels;
+using CloudHRMS.Services;
 using Microsoft.AspNetCore.Mvc;
-using System.ComponentModel;
 
 namespace CloudHRMS.Controllers
 {
 	public class DepartmentController : Controller
 	{
-		private readonly ApplicationDbContext _applicationDbContext;
-
+		private readonly IDepartmentService _departmentService;
 		ErrorViewModel error = new ErrorViewModel();
 
-        public DepartmentController(ApplicationDbContext applicationDbContext)
-        {
-			_applicationDbContext = applicationDbContext;
-        }
+		public DepartmentController(IDepartmentService departmentService)
+		{
+			this._departmentService = departmentService;
+		}
 
-        public IActionResult Entry()
+		public IActionResult Entry()
 		{
 			return View();
 		}
@@ -26,84 +22,32 @@ namespace CloudHRMS.Controllers
 		[HttpPost]
 		public IActionResult Entry(DepartmentViewModel departmentViewModel)
 		{
-			var isAlreadyExistCode = _applicationDbContext.Departments.Where(w => w.Code == departmentViewModel.Code).Any();
-			if (isAlreadyExistCode)
-			{
-				error.Message = $"This code {isAlreadyExistCode} is already exist in the system try another";
-				return View();
-			}
 			try
 			{
-				DepartmentEntity departmentEntity = new DepartmentEntity()
-				{
-					Id = Guid.NewGuid().ToString(),
-					Code = departmentViewModel.Code,
-					Description = departmentViewModel.Description,
-					ExtensionPhone = departmentViewModel.ExtensionPhone,
-					IsActive = true,
-					IpAddress = NetworkHelper.GetMechinePublicIP(),
-					CreatedAt = DateTime.Now,
-					CreatedBy = "System"
-
-				};
-				_applicationDbContext.Departments.Add(departmentEntity);
-				_applicationDbContext.SaveChanges();
+				_departmentService.Create(departmentViewModel);
 				error.Message = "Transaction save successful to the System";
 			}
 			catch
 			{
-
 				error.Message = "Transaction not save,found error";
 				error.IsOccurError = true;
 			}
 			ViewBag.Msg = error;
 
-			return View();
+			return RedirectToAction("List");
 		}
 
-		public IActionResult List()
-		{
-			IList<DepartmentViewModel> departments = _applicationDbContext.Departments
-														.Where(w => w.IsActive)
-														.Select(s => new DepartmentViewModel
-														{
-															Id = s.Id,
-															Code = s.Code,
-															Description = s.Description,
-															ExtensionPhone = s.ExtensionPhone,
-															
 
-														}).ToList();
-			return View(departments);
-		}
+		public IActionResult List() => View(_departmentService.RetireveAll());
 
-		public IActionResult Edit(string Id)
-		{
-			var department = _applicationDbContext.Departments.Where(w => w.Id == Id).Select(s => new DepartmentViewModel
-			{
-				Id = s.Id,
-				Code = s.Code,
-				Description = s.Description,
-				ExtensionPhone = s.ExtensionPhone
+		public IActionResult Edit(string Id)=>View(_departmentService.GetById(Id));
 
-			}).SingleOrDefault();
-			return View(department);
-		}
 		[HttpPost]
 		public IActionResult Update(DepartmentViewModel departmentViewModel)
 		{
 			try
 			{
-				var existingDepartmentEntity = _applicationDbContext.Departments.Find(departmentViewModel.Id);
-				existingDepartmentEntity.Code = departmentViewModel.Code;
-				existingDepartmentEntity.Description = departmentViewModel.Description;
-				existingDepartmentEntity.ExtensionPhone = departmentViewModel.ExtensionPhone;
-				existingDepartmentEntity.CreatedBy = "system";
-				existingDepartmentEntity.CreatedAt = DateTime.Now;
-				existingDepartmentEntity.IsActive = true;
-				existingDepartmentEntity.IpAddress = NetworkHelper.GetMechinePublicIP();
-				_applicationDbContext.Departments.Update(existingDepartmentEntity);
-				_applicationDbContext.SaveChanges();
+				_departmentService.Update(departmentViewModel);
 				TempData["Msg"] = "Successful update to the system";
 				TempData["IsOccourError"] = false;
 			}
@@ -111,9 +55,9 @@ namespace CloudHRMS.Controllers
 			{
 				TempData["Msg"] = "Error Occour";
 				TempData["IsOccourError"] = true;
-				
+
 			}
-			
+
 			return RedirectToAction("List");
 		}
 
@@ -121,23 +65,20 @@ namespace CloudHRMS.Controllers
 		{
 			try
 			{
-				var existingDepartments = _applicationDbContext.Departments.Where(w => w.Id == Id).SingleOrDefault();
-				if (existingDepartments is not null)
-				{
-					existingDepartments.IsActive = false;
-					_applicationDbContext.Update(existingDepartments);
-					_applicationDbContext.SaveChanges();
-					TempData["Msg"] = "Successful Delete from the system";
-					TempData["IsOccourError"] = false;
-				}
+				_departmentService.Delete(Id);
+				TempData["Msg"] = "Successful Delete from the system";
+				TempData["IsOccourError"] = false;
 			}
-			catch 
+			catch
 			{
 				TempData["Msg"] = "Error Occour";
 				TempData["IsOccourError"] = true;
 			}
 			return RedirectToAction("List");
 		}
-		
 	}
 }
+
+
+		
+
