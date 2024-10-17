@@ -105,23 +105,27 @@ namespace CloudHRMS.Repositories
 
 		public IList<EmployeeViewModel> RetireveAll()
 		{
-			IList<EmployeeViewModel> employees = _applicationDbContext.Employees
-														.Where(w => w.IsActive)
-														.Select(s => new EmployeeViewModel
-														{
-															Id = s.Id,
-															No = s.No,
-															FullName = s.FullName,
-															Email = s.Email,
-															Phone = s.Phone,
-															Address = s.Address,
-															Salary = s.Salary,
-															Gender = s.Gender,
-															DOB = s.DOB,
-															DOE = s.DOE,
-															DOR = s.DOR
-
-														}).ToList();
+			IList<EmployeeViewModel> employees = (from e in _applicationDbContext.Employees
+												  join d in _applicationDbContext.Departments
+												  on e.DepartmentId equals d.Id
+												  join p in _applicationDbContext.Positions
+												  on e.PositionId equals p.Id
+												  where e.IsActive & d.IsActive & p.IsActive
+												  select new EmployeeViewModel
+												  {
+													Id= e.Id,
+													FullName = e.FullName,
+													Email = e.Email,
+													Gender = e.Gender,
+													DOB = e.DOB,
+													DOE = e.DOE,
+													DOR	= e.DOR,
+													Phone = e.Phone,
+													Address = e.Address,
+													Salary = e.Salary,
+													DepartmentId = e.DepartmentId,
+													PositionId = e.PositionId
+												  }).ToList();
 			return employees;
 		}
 

@@ -1,0 +1,30 @@
+﻿<h1>Attendance Policy Form</h1>
+
+<form action="/AttendancePolicy/entry" method="post">
+	<div class="mb-3">
+		<label for="Name" class="form-label">Name</label>
+		<input type="text" class="form-control" name="Name" placeholder="Enter Name" required>
+	</div>
+
+	<div class="mb-3">
+		<label for="NumberOfLateTimes" class="form-label">Number Of Late Times</label>
+		<input type="number" class="form-control" name="NumberOfLateTimes" placeholder="Enter Number of Late Times" required>
+	</div>
+	<div class="mb-3">
+		<label for="NumberOfEarlyOutTimes" class="form-label">Number Of Early Out Times</label>
+		<input type="number" class="form-control" name="NumberOfEarlyOutTimes" placeholder="Enter Number of Early Out Time" required>
+	</div>
+	<div class="mb-3">
+		<label for="DeductionInAmount" class="form-label">Deduction Amount</label>
+		<input type="number" class="form-control" name="DeductionInAmount" placeholder="Enter Deduction Amount" required>
+	</div>
+	<div class="mb-3">
+		<label for="DeductionInDay" class="form-label">Deduction In Day</label>
+		<input type="number" class="form-control" name="DeductionInDay" placeholder="Enter Deduction In Day" required>
+	</div>
+
+	<div class="mb-3">
+		<button type="submit" class="btn btn-primary">Submit</button>
+		<a href="/AttendancePolicy/list" class="btn btn-warning">Cancel</a>
+	</div>
+</form>

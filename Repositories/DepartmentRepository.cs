@@ -2,7 +2,6 @@
 using CloudHRMS.Models.Entities;
 using CloudHRMS.Models.ViewModels;
 using CloudHRMS.Utility.Network;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace CloudHRMS.Repositories
 {

@@ -19,6 +19,8 @@ builder.Services.AddScoped<IDepartmentService, DepartmentService>();
 builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
 builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+builder.Services.AddScoped<IAttendancePolicyService, AttendancePolicyService>();
+builder.Services.AddScoped<IAttendancePolicyRepository, AttendancePolicyRepository>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
