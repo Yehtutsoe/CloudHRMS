@@ -1,6 +1,7 @@
 ﻿using CloudHRMS.DAO;
 using CloudHRMS.Models.Entities;
 using CloudHRMS.Models.ViewModels;
+using CloudHRMS.Services;
 using CloudHRMS.Utility.Network;
 
 namespace CloudHRMS.Repositories
@@ -8,14 +9,22 @@ namespace CloudHRMS.Repositories
 	public class EmployeeRepository : IEmployeeRepository
 	{
 		private readonly ApplicationDbContext _applicationDbContext;
-        public EmployeeRepository(ApplicationDbContext applicationDbContext)
+		private readonly IUserService _userService;
+
+		public EmployeeRepository(ApplicationDbContext applicationDbContext,IUserService userService)
         {
 			_applicationDbContext = applicationDbContext;
-        }
-		public void Create(EmployeeViewModel employeeViewModel)
+			_userService = userService;
+		}
+		public async void Create(EmployeeViewModel employeeViewModel)
 		{
 			try
 			{
+				string userId = await _userService.CreateUser(employeeViewModel.FullName,employeeViewModel.Email);
+				if (string.IsNullOrEmpty(userId))
+				{
+					throw new Exception();
+				}
 				EmployeeEntity employeeEntity = new EmployeeEntity()
 				{
 
@@ -35,7 +44,7 @@ namespace CloudHRMS.Repositories
 					IsActive = true,
 					IpAddress = NetworkHelper.GetMechinePublicIP(),
 					DepartmentId = employeeViewModel.DepartmentId,
-					PositionId = employeeViewModel.PositionId
+					PositionId = employeeViewModel.PositionId,
 				};
 
 				_applicationDbContext.Employees.Add(employeeEntity);

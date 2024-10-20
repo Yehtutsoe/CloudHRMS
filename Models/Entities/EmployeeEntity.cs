@@ -30,5 +30,7 @@ namespace CloudHRMS.Models.Entities
         [ForeignKey(nameof(PositionId))]
         public PositionEntity Position { get; set; }
 
+        public string UserId { get; set; }  // for authentication login 
+
     }
 }

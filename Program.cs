@@ -16,7 +16,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(option =>option
 //Register Identity for UIs
 builder.Services.AddRazorPages();
 //Register for Identity DbContext for Related identity user and role
-builder.Services.AddDefaultIdentity<IdentityUser>().AddEntityFrameworkStores<ApplicationDbContext>();
+builder.Services.AddIdentity<IdentityUser,IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();
 
 // Declare Service and repository Interface
 builder.Services.AddScoped<IPositionService, PositionService>();
@@ -27,6 +27,7 @@ builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 builder.Services.AddScoped<IAttendancePolicyService, AttendancePolicyService>();
 builder.Services.AddScoped<IAttendancePolicyRepository, AttendancePolicyRepository>();
+builder.Services.AddScoped<IUserService, UserService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

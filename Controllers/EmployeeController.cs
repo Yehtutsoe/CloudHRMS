@@ -9,12 +9,13 @@ namespace CloudHRMS.Controllers
 	public class EmployeeController : Controller
 	{
 		private readonly IEmployeeService _employeeService;
-
+		
 		ErrorViewModel error = new ErrorViewModel();
 
 		public EmployeeController(IEmployeeService employeeService)
 		{
 			_employeeService = employeeService;
+
 		}
 		public IActionResult Entry() {
 			return View(_employeeService.PrepareEntryForm());
