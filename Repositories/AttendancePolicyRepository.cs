@@ -31,8 +31,6 @@ namespace CloudHRMS.Repositories
 					CreatedBy = "System",
 					IsActive = true,
 					IpAddress = NetworkHelper.GetMechinePublicIP(),
-					UpdatedAt = DateTime.Now,
-					UpdatedBy = "System"
 				};
 				_applicationDbContext.Add(attendancePolicyEntity);
 				_applicationDbContext.SaveChanges();
@@ -47,12 +45,19 @@ namespace CloudHRMS.Repositories
 
 		public void Delete(string Id)
 		{
-			var existingAttendance = _applicationDbContext.AttendancePolicys.Where(w => w.Id == Id).SingleOrDefault();
-			if (existingAttendance != null)
+			try
 			{
-				existingAttendance.IsActive = false;
-				_applicationDbContext.Update(existingAttendance);
-				_applicationDbContext.SaveChanges();
+				var existingAttendancePolicy = _applicationDbContext.AttendancePolicys.Where(w => w.Id == Id).SingleOrDefault();
+				if (existingAttendancePolicy is not null)
+				{
+					existingAttendancePolicy.IsActive = false;
+					_applicationDbContext.Update(existingAttendancePolicy);
+					_applicationDbContext.SaveChanges();
+				}
+			}
+			catch (Exception e)
+			{
+				throw e;
 			}
 		}
 
@@ -62,6 +67,7 @@ namespace CloudHRMS.Repositories
 													.Where(w => w.Id == Id)
 													.Select(s => new AttendancePolicyViewModel
 													{
+														Id = s.Id,
 														Name = s.Name,
 														NumberOfLateTimes = s.NumberOfLateTimes,
 														NumberOfEarlyOutTimes = s.NumberOfEarlyOutTimes,
@@ -77,6 +83,7 @@ namespace CloudHRMS.Repositories
 																					 .Where(w => w.IsActive)
 																					 .Select(s => new AttendancePolicyViewModel
 																					 {
+																						Id = s.Id,
 																						 Name = s.Name,
 																						 NumberOfLateTimes = s.NumberOfLateTimes,
 																						 NumberOfEarlyOutTimes = s.NumberOfEarlyOutTimes,
@@ -96,11 +103,9 @@ namespace CloudHRMS.Repositories
 				existingAttendancePolicy.NumberOfEarlyOutTimes = attendancePolicyView.NumberOfEarlyOutTimes;
 				existingAttendancePolicy.DeductionInAmount = attendancePolicyView.DeductionInAmount;
 				existingAttendancePolicy.DeductionInDay = attendancePolicyView.DeductionInDay;
-				existingAttendancePolicy.CreatedBy = "System";
-				existingAttendancePolicy.CreatedAt = DateTime.Now;
-				existingAttendancePolicy.IsActive = true;
+				existingAttendancePolicy.UpdatedBy = "System";
+				existingAttendancePolicy.UpdatedAt = DateTime.Now;
 				existingAttendancePolicy.IpAddress = NetworkHelper.GetMechinePublicIP();
-				_applicationDbContext.Update(existingAttendancePolicy);
 				_applicationDbContext.SaveChanges();
 			}
 			catch (Exception e)

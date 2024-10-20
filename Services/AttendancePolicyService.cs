@@ -9,7 +9,7 @@ namespace CloudHRMS.Services
 
         public AttendancePolicyService(IAttendancePolicyRepository attendancePolicyRepository)
         {
-            this._attendancePolicyRepository = attendancePolicyRepository;
+            _attendancePolicyRepository = attendancePolicyRepository;
         }
         public void Create(AttendancePolicyViewModel attendancePolicyView)
 		{

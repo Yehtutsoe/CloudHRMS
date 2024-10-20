@@ -1,0 +1,35 @@
+﻿@model AttendancePolicyViewModel
+
+<h1>Attendance Policy Edit Form</h1>
+
+<form action="/AttendancePolicy/Update" method="post">
+	<div class="mb-3">
+		<input type="hidden" class="form-control" value="@Model.Id" name="Id" required>
+	</div>
+	<div class="mb-3">
+		<label for="Name" class="form-label">Name</label>
+		<input type="text" class="form-control" value="@Model.Name" name="Name">
+	</div>
+
+	<div class="mb-3">
+		<label for="NumberOfLateTimes" class="form-label">Number Of Late Times</label>
+		<input type="number" class="form-control" value="@Model.NumberOfLateTimes" name="NumberOfLateTimes">
+	</div>
+	<div class="mb-3">
+		<label for="NumberOfEarlyOutTimes" class="form-label">Number Of Early Out Times</label>
+		<input type="number" class="form-control" name="NumberOfEarlyOutTimes" value="@Model.NumberOfEarlyOutTimes">
+	</div>
+	<div class="mb-3">
+		<label for="DeductionInAmount" class="form-label">Deduction Amount</label>
+		<input type="number" class="form-control" name="DeductionInAmount" value="@Model.DeductionInAmount">
+	</div>
+	<div class="mb-3">
+		<label for="DeductionInDay" class="form-label">Deduction In Day</label>
+		<input type="number" class="form-control" name="DeductionInDay" value="@Model.DeductionInDay">
+	</div>
+
+	<div class="mb-3">
+		<button type="submit" class="btn btn-primary">Save</button>
+		<a href="/AttendancePolicy/list" class="btn btn-warning">Cancel</a>
+	</div>
+</form>

@@ -49,7 +49,7 @@
 				<td>@position.Level</td>
 				<td>
 					<a href="/position/Edit?id=@position.Id" class="btn btn-success">Edit</a>
-					<a href="/position/Delete?id=@position.Id" class="btn btn-danger">Delete</a>
+					<a href="/position/Delete?id=@position.Id" class="btn btn-danger" onclick="confirm('Are you sure want to Delete')">Delete</a>
 				</td>
 			</tr>
 			i++;

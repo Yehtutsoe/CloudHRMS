@@ -1,8 +1,9 @@
 ﻿using CloudHRMS.Models.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 namespace CloudHRMS.DAO
 {
-	public class ApplicationDbContext:DbContext
+	public class ApplicationDbContext:IdentityDbContext
 	{
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> option):base(option)
         {

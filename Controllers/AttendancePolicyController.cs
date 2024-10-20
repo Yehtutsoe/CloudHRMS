@@ -1,6 +1,7 @@
 ﻿using CloudHRMS.Models.ViewModels;
 using CloudHRMS.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Identity.Client;
 
 namespace CloudHRMS.Controllers
 {
@@ -34,5 +35,22 @@ namespace CloudHRMS.Controllers
 			}
 			return View();
 		}
+		public IActionResult List() => View(_attendancePolicyService.RetrieveAll());
+		
+		public IActionResult Edit(string Id) => View(_attendancePolicyService.GetById(Id));
+
+		[HttpPost]
+		public IActionResult Update(AttendancePolicyViewModel attendancePolicyViewModel)
+		{
+			_attendancePolicyService.Update(attendancePolicyViewModel);
+			return RedirectToAction("List");
+		}
+
+		public IActionResult Delete(string Id)
+		{
+			_attendancePolicyService.Delete(Id);
+			return RedirectToAction("List");
+		}
+		
 	}
 }

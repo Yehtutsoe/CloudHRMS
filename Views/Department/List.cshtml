@@ -1,8 +1,6 @@
 ﻿<head>
-	<head>
 		<!--for JQuery plugin-->
 		<script src="~/lib/jquery/dist/jquery.min.js"></script>
-	</head>
 </head>
 @model IList<DepartmentViewModel>
 @{
@@ -49,7 +47,7 @@
 				<td>@department.ExtensionPhone</td>
 				<td>
 					<a href="/department/Edit?id=@department.Id" class="btn btn-primary">Edit</a>
-					<a href="/department/Delete?id=@department.Id" class="btn btn-danger">Delete</a>
+					<a href="/department/Delete?id=@department.Id" class="btn btn-danger" onclick="confirm('Are you sure want to Delete?')">Delete</a>
 				</td>
 			</tr>
 			i++;

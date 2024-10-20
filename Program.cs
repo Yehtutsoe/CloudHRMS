@@ -1,6 +1,7 @@
 using CloudHRMS.DAO;
 using CloudHRMS.Repositories;
 using CloudHRMS.Services;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,6 +13,11 @@ var config = builder.Configuration; //declare the configure to read json
 //add the dbContext that we defined the ApplicationDbContext to get connestion string
 builder.Services.AddDbContext<ApplicationDbContext>(option =>option
 															.UseSqlServer(config.GetConnectionString("CloudHRMSConnectionString")));
+//Register Identity for UIs
+builder.Services.AddRazorPages();
+//Register for Identity DbContext for Related identity user and role
+builder.Services.AddDefaultIdentity<IdentityUser>().AddEntityFrameworkStores<ApplicationDbContext>();
+
 // Declare Service and repository Interface
 builder.Services.AddScoped<IPositionService, PositionService>();
 builder.Services.AddScoped<IPositionRepository, PositionRepository>();
@@ -35,11 +41,13 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+// Enable Authentication and Authorization process
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
 	name: "default",
 	pattern: "{controller=Home}/{action=Index}/{id?}");
-
+//Mapping the razor page route
+app.MapRazorPages();
 app.Run();
