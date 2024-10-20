@@ -8,7 +8,7 @@ namespace CloudHRMS.Services
 		private readonly IEmployeeRepository _employeeRepository;
         public EmployeeService(IEmployeeRepository employeeRepository)
         {
-			this._employeeRepository = employeeRepository;
+			_employeeRepository = employeeRepository;
         }
 		public void Create(EmployeeViewModel employeeView)
 		{
