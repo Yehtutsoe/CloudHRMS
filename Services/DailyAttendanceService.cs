@@ -18,7 +18,7 @@ namespace CloudHRMS.Services
 
 		public void Delete(string Id)
 		{
-			throw new NotImplementedException();
+			
 		}
 
 		public DailyAttendanceViewModel GetById(string Id)
