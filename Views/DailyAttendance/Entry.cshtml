@@ -1,0 +1,34 @@
+﻿<h1>Daily Attendance Form</h1>
+<form action="/DailyAttendance/entry" method="post">
+	<div class="mb-3">
+		<label for="AttendanceDate" class="form-label">Attendance Date</label>
+		<input type="date" class="form-control" name="AttendanceDate" placeholder="Enter Attendance" required>
+	</div>
+	<div class="mb-3">
+		<label for="InTime" class="form-label">In Time </label>
+		<input type="time" class="form-control" name="InTime" placeholder="Enter InTime" required>
+	</div>
+	<div class="mb-3">
+		<label for="OutTime" class="form-label">Out Time</label>
+		<input type="time" class="form-control" name="OutTime" placeholder="Enter Attendance" required>
+	</div>
+	<div class="mb-3">
+		<label for="EmployeeId">Employee</label>
+		<select class="form-select" name="EmployeeId">
+			<option value="">[Select Employee]</option>
+		
+			
+				<option value=""></option>
+			
+		</select>
+	</div>
+	<div class="mb-3">
+		<label for="DepartmentId">Department</label>
+		<select class="form-select" name="DepartmentId">
+			<option value="">[Select Department]</option>
+		</select>
+	</div>
+
+	<buttton class="btn btn-primary" type="submiy">Submit</buttton>
+	<a href="/DailyAttendance/entry" class="btn btn-warning">Cancel</a>
+</form>

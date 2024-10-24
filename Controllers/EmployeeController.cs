@@ -22,10 +22,10 @@ namespace CloudHRMS.Controllers
 		}
 
 		[HttpPost]
-		public IActionResult Entry(EmployeeViewModel employeeViewModel)
+		public async Task<IActionResult> Entry(EmployeeViewModel employeeViewModel)
 		{
 			try {
-				_employeeService.Create(employeeViewModel);
+				await _employeeService.Create(employeeViewModel);
 				error.Message = "Successfully Save the record to the system";
 			}
 			catch
@@ -36,7 +36,11 @@ namespace CloudHRMS.Controllers
 			ViewBag.Msg = error;
 			return RedirectToAction("List");
 		}
-		public IActionResult List()=>View(_employeeService.ReterieveAll());
+		public IActionResult List()
+		{
+			var employees = _employeeService.ReterieveAll();
+			return View(employees);
+		}
 
 		//port://host/employee/delete?id=10
 		public IActionResult Delete(string Id)

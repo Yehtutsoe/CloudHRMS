@@ -16,40 +16,41 @@ namespace CloudHRMS.Repositories
 			_applicationDbContext = applicationDbContext;
 			_userService = userService;
 		}
-		public async void Create(EmployeeViewModel employeeViewModel)
+		public async Task Create(EmployeeViewModel employeeViewModel)
 		{
 			try
 			{
 				string userId = await _userService.CreateUser(employeeViewModel.FullName,employeeViewModel.Email);
 				if (string.IsNullOrEmpty(userId))
 				{
-					throw new Exception();
+					throw new Exception("User Creation Failsl.");
 				}
-				EmployeeEntity employeeEntity = new EmployeeEntity()
-				{
+					EmployeeEntity employeeEntity = new EmployeeEntity()
+					{
 
-					Id = Guid.NewGuid().ToString(),
-					No = employeeViewModel.No,
-					FullName = employeeViewModel.FullName,
-					Gender = employeeViewModel.Gender,
-					DOB = employeeViewModel.DOB,
-					DOE = employeeViewModel.DOE,
-					Phone = employeeViewModel.Phone,
-					Address = employeeViewModel.Address,
-					Salary = employeeViewModel.Salary,
-					Email = employeeViewModel.Email,
-					DOR = employeeViewModel.DOR,
-					CreatedAt = DateTime.Now,
-					CreatedBy = "System",
-					IsActive = true,
-					IpAddress = NetworkHelper.GetMechinePublicIP(),
-					DepartmentId = employeeViewModel.DepartmentId,
-					PositionId = employeeViewModel.PositionId,
-				};
+						Id = Guid.NewGuid().ToString(),
+						No = employeeViewModel.No,
+						FullName = employeeViewModel.FullName,
+						Gender = employeeViewModel.Gender,
+						DOB = employeeViewModel.DOB,
+						DOE = employeeViewModel.DOE,
+						Phone = employeeViewModel.Phone,
+						Address = employeeViewModel.Address,
+						Salary = employeeViewModel.Salary,
+						Email = employeeViewModel.Email,
+						DOR = employeeViewModel.DOR,
+						CreatedAt = DateTime.Now,
+						CreatedBy = "System",
+						IsActive = true,
+						IpAddress = NetworkHelper.GetMechinePublicIP(),
+						DepartmentId = employeeViewModel.DepartmentId,
+						PositionId = employeeViewModel.PositionId,
+						UserId = userId
+					};
 
-				_applicationDbContext.Employees.Add(employeeEntity);
-				_applicationDbContext.SaveChanges();
-			}
+					_applicationDbContext.Employees.Add(employeeEntity);
+					_applicationDbContext.SaveChanges();
+				}
 			catch(Exception e)
 			{
 				throw e;
@@ -133,7 +134,8 @@ namespace CloudHRMS.Repositories
 													Address = e.Address,
 													Salary = e.Salary,
 													DepartmentId = e.DepartmentId,
-													PositionId = e.PositionId
+													PositionId = e.PositionId,
+													
 												  }).ToList();
 			return employees;
 		}

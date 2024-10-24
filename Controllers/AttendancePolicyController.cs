@@ -33,7 +33,7 @@ namespace CloudHRMS.Controllers
 				error.IsOccurError = true;
 				throw e;
 			}
-			return View();
+			return RedirectToAction("List");
 		}
 		public IActionResult List() => View(_attendancePolicyService.RetrieveAll());
 		

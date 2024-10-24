@@ -10,7 +10,7 @@ namespace CloudHRMS.Services
         {
 			_employeeRepository = employeeRepository;
         }
-		public void Create(EmployeeViewModel employeeView)
+		public async Task Create(EmployeeViewModel employeeView)
 		{
 			_employeeRepository.Create(employeeView);
 		}

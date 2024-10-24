@@ -23,10 +23,12 @@ namespace CloudHRMS.Models.Entities
         public string Address { get; set; }
 
         public string DepartmentId { get; set; }
+
         [ForeignKey(nameof(DepartmentId))]
         public DepartmentEntity Department { get; set; }
 
         public string PositionId { get; set; }
+
         [ForeignKey(nameof(PositionId))]
         public PositionEntity Position { get; set; }
 

@@ -4,7 +4,7 @@ namespace CloudHRMS.Repositories
 {
 	public interface IEmployeeRepository
 	{
-		void Create(EmployeeViewModel employeeViewModel);
+		Task Create(EmployeeViewModel employeeViewModel);
 		EmployeeViewModel GetById(string Id);
 		IList<DepartmentViewModel> GetActiveDepartment();
 		IList<PositionViewModel> GetActivePosition();
