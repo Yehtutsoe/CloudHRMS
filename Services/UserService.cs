@@ -12,20 +12,27 @@ namespace CloudHRMS.Services
         }
         public async Task<string> CreateUser(string userName, string email)
 		{
-			var user = CreateUser();
-			user.Email = email; //pass the email of employee data
-			user.UserName = email; //pass the FullName of employee data
-			user.NormalizedUserName = userName;
-			user.NormalizedEmail = email;
-			var result = await _userManager.CreateAsync(user,"Speci@l92"); // create a user with default password
-			if (result.Succeeded) {
-				await _userManager.AddToRoleAsync(user, "Employee"); // assign created user to "Employee" role
-				return user.Id;
-			}
-			else
+			try
 			{
-				return string.Empty;
-			}
+				var user = CreateUser();
+				user.Email = email; //pass the email of employee data
+				user.UserName = email; //pass the FullName of employee data
+				user.NormalizedUserName = userName;
+				user.NormalizedEmail = email;
+				var result = await _userManager.CreateAsync(user, "Speci@l92"); // create a user with default password
+				if (result.Succeeded)
+				{
+					await _userManager.AddToRoleAsync(user, "Employee"); // assign created user to "Employee" role
+					
+				}
+                return user.Id;
+            }
+			catch (Exception e)
+			{
+
+                return string.Empty;
+            }
+	
 		}
 
 		private IdentityUser CreateUser()

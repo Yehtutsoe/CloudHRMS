@@ -1,5 +1,6 @@
 ﻿using CloudHRMS.Models.ViewModels;
 using CloudHRMS.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Identity.Client;
 
@@ -14,11 +15,13 @@ namespace CloudHRMS.Controllers
         {
             _attendancePolicyService = attendancePolicyService;
         }
+        [Authorize(Roles = "HR")]
         public IActionResult Entry()
 		{
 			return View();
 		}
-		[HttpPost]
+        [Authorize(Roles = "HR")]
+        [HttpPost]
 		public IActionResult Entry(AttendancePolicyViewModel attendancePolicyViewModel)
 		{
 			try
@@ -38,15 +41,15 @@ namespace CloudHRMS.Controllers
 		public IActionResult List() => View(_attendancePolicyService.RetrieveAll());
 		
 		public IActionResult Edit(string Id) => View(_attendancePolicyService.GetById(Id));
-
-		[HttpPost]
+        [Authorize(Roles = "HR")]
+        [HttpPost]
 		public IActionResult Update(AttendancePolicyViewModel attendancePolicyViewModel)
 		{
 			_attendancePolicyService.Update(attendancePolicyViewModel);
 			return RedirectToAction("List");
 		}
-
-		public IActionResult Delete(string Id)
+        [Authorize(Roles = "HR")]
+        public IActionResult Delete(string Id)
 		{
 			_attendancePolicyService.Delete(Id);
 			return RedirectToAction("List");

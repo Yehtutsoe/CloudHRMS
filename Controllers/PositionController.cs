@@ -14,7 +14,7 @@ namespace CloudHRMS.Controllers
 
         public PositionController(IPositionService positionService)
         {
-			this._positionService = positionService;
+			_positionService = positionService;
         }
         public IActionResult Entry()=>View();
 

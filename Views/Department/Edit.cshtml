@@ -22,7 +22,6 @@
 <h1 class="display-2">Department Update Form</h1>
 
 <form action="/department/Update" method="post">
-	<div class="col-5">
 		<div class="mb-3">
 			<input type="hidden" value="@Model.Id" name="Id" class="form-control">
 		</div>
@@ -39,7 +38,6 @@
 			<label for="ExtensionPhone" class="from-label">ExtensionPhone</label>
 			<input type="text" value="@Model.ExtensionPhone" name="ExtensionPhone" class="form-control" placeholder="Enter ExtensionPhone">
 		</div>
-	</div>
 
 	<button type="submit" class="btn btn-primary mb-3">Save</button>
 	<a href="/department/list" class="btn btn-warning">Cancel</a>

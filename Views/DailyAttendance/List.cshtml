@@ -1,4 +1,6 @@
-﻿@model DailyAttendanceViewModel
+﻿@model IList<DailyAttendanceViewModel>
+
+<h1>Daily Attendance List</h1>
 <table class="table-hover">
 	<thead class="table table-dark">
 		<tr>
@@ -12,17 +14,22 @@
 		</tr>
 	</thead>
 	<tbody>
-		var i = 1;
+		@{
+			var i = 1;
+		}
+		
 		@foreach(var dailyAttendance in Model)
 		{
 			<tr>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
+				<td>@i</td>
+				<td>@dailyAttendance.AttendanceDate</td>
+				<td>@dailyAttendance.OutTime</td>
+				<td>@dailyAttendance.InTime</td>
+				<td>@dailyAttendance.EmployeeInfo</td>
+				<td>@dailyAttendance.DepartmentInfo</td>
 				<td>
+                    <a href="/DailyAttendance/edit?id=@dailyAttendance.Id" class="btn btn-primary">Edit</a>
+                    <a href="/DailyAttendance/delet?id=@dailyAttendance.Id" class="btn btn-danger" onclick="confirm("Are you sure want to delete")">Delete</a>
 				</td>
 			</tr>
 			i++;

@@ -7,12 +7,16 @@ namespace CloudHRMS.Models.Entities
 	{
 		[Key]
 		public string Id { get; set; }
+        [MaxLength(15)]
         public DateTime CreatedAt { get; set; }
-
-        public string CreatedBy { get; set; }
-        public DateTime? UpdatedAt { get; set; } 
-        public string? UpdatedBy { get; set; }
+		[MaxLength(15)]
+		public string CreatedBy { get; set; }
+		[MaxLength(15)]
+		public DateTime? UpdatedAt { get; set; }
+		[MaxLength(12)]
+		public string? UpdatedBy { get; set; }
         public string IpAddress { get; set; } = NetworkHelper.GetMechinePublicIP();
-        public bool IsActive { get; set; }
+		[MaxLength(6)]
+		public bool IsActive { get; set; }
     }
 }

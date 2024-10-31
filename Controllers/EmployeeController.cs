@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using CloudHRMS.Models.ViewModels;
 using CloudHRMS.Services;
-using CloudHRMS.DAO;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CloudHRMS.Controllers
 {
@@ -11,16 +11,21 @@ namespace CloudHRMS.Controllers
 		private readonly IEmployeeService _employeeService;
 		
 		ErrorViewModel error = new ErrorViewModel();
-
+		#region Constructor
 		public EmployeeController(IEmployeeService employeeService)
 		{
 			_employeeService = employeeService;
 
 		}
-		public IActionResult Entry() {
+		#endregion
+
+		[Authorize(Roles = "HR")]
+        public IActionResult Entry() {
 			return View(_employeeService.PrepareEntryForm());
 		}
 
+		#region Create
+		[Authorize(Roles ="HR")]
 		[HttpPost]
 		public async Task<IActionResult> Entry(EmployeeViewModel employeeViewModel)
 		{
@@ -36,14 +41,20 @@ namespace CloudHRMS.Controllers
 			ViewBag.Msg = error;
 			return RedirectToAction("List");
 		}
+		#endregion
+
+		#region Retrieve
 		public IActionResult List()
 		{
 			var employees = _employeeService.ReterieveAll();
 			return View(employees);
 		}
+		#endregion
 
-		//port://host/employee/delete?id=10
-		public IActionResult Delete(string Id)
+		#region Delete
+		[Authorize(Roles = "HR")]
+        //port://host/employee/delete?id=10
+        public IActionResult Delete(string Id)
 		{
 			try { 
 					_employeeService.Delete(Id);
@@ -57,11 +68,16 @@ namespace CloudHRMS.Controllers
 			}
 			return RedirectToAction("List");
 		}
+		#endregion
 
-		public IActionResult Edit(string Id)=> View(_employeeService.GetById(Id));
-		
+		#region Edit
+		[Authorize(Roles = "HR")]
+        public IActionResult Edit(string Id)=> View(_employeeService.GetById(Id));
+		#endregion
 
-		[HttpPost]
+		#region Update
+		[Authorize(Roles = "HR")]
+        [HttpPost]
 		public IActionResult Update(EmployeeViewModel employeeViewModel)
 		{
 			try { 
@@ -76,6 +92,7 @@ namespace CloudHRMS.Controllers
 			}
 				return RedirectToAction("List");
 		}
+		#endregion
 
 	}
 }

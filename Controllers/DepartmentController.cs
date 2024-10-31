@@ -11,7 +11,7 @@ namespace CloudHRMS.Controllers
 
 		public DepartmentController(IDepartmentService departmentService)
 		{
-			this._departmentService = departmentService;
+			_departmentService = departmentService;
 		}
 
 		public IActionResult Entry()

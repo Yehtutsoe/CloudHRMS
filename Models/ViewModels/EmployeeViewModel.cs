@@ -20,6 +20,7 @@ namespace CloudHRMS.Models.ViewModels
 		public string DepartmentInfo { get; set; }
 		public string PositionId { get; set; }
         public string PositionInfo { get; set; }
+        public string UserId { get; set; }
 
         public IList<PositionViewModel> PositionsViewModel { get; set; } // for list UI
 

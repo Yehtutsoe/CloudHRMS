@@ -1,13 +1,17 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CloudHRMS.Models.Entities
 {
-	[Table("DailyAttendancy")]
+	[Table("DailyAttendance")]
 	public class DailyAttendanceEntity:BaseEntity
     {
+        [MaxLength(15)]
         public DateTime AttendanceDate { get; set; }
+        [MaxLength(15)]
         public TimeSpan InTime { get; set; }
-        public TimeSpan OutTime { get; set; }
+		[MaxLength(15)]
+		public TimeSpan OutTime { get; set; }
         public string EmployeeId { get; set; }
         [ForeignKey(nameof(EmployeeId))]
         public EmployeeEntity Employee { get; set; }

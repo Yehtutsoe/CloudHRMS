@@ -1,5 +1,6 @@
 ﻿using CloudHRMS.Models.ViewModels;
 using CloudHRMS.Repositories;
+using Microsoft.Identity.Client;
 
 namespace CloudHRMS.Services
 {
@@ -11,6 +12,16 @@ namespace CloudHRMS.Services
         {
 			_dailyAttendanceRepository = dailyAttendanceRepository;
 		}
+
+		public DailyAttendanceViewModel PreparedEntryForm()
+		{
+			var dailAttendanceView = new DailyAttendanceViewModel
+			{
+				EmployeeViewModels = _dailyAttendanceRepository.GetActiveEmployee(),
+				DepartmentViewModels = _dailyAttendanceRepository.GetActiveDepartment()
+			};
+			return dailAttendanceView;
+		}
         public void Create(DailyAttendanceViewModel dailyAttendanceView)
 		{
 			_dailyAttendanceRepository.Create(dailyAttendanceView);
@@ -18,7 +29,7 @@ namespace CloudHRMS.Services
 
 		public void Delete(string Id)
 		{
-			
+			_dailyAttendanceRepository.Delete(Id);
 		}
 
 		public DailyAttendanceViewModel GetById(string Id)
@@ -28,7 +39,7 @@ namespace CloudHRMS.Services
 
 		public IList<DailyAttendanceViewModel> ReterieveAll()
 		{
-			throw new NotImplementedException();
+			return _dailyAttendanceRepository.ReterieveAll();
 		}
 
 		public void Update(DailyAttendanceViewModel dailyAttendanceView)

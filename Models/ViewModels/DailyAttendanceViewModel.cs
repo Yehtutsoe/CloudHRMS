@@ -13,5 +13,7 @@ namespace CloudHRMS.Models.ViewModels
         public string EmployeeInfo { get; set; }
         public string DepartmentInfo { get; set; }
 
+        public IList<EmployeeViewModel> EmployeeViewModels { get; set; } // List for UI
+        public IList<DepartmentViewModel> DepartmentViewModels { get; set; } // List for UI
     }
 }
