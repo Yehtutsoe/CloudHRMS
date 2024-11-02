@@ -9,11 +9,12 @@ namespace CloudHRMS.Repositories
 	{
 		private readonly ApplicationDbContext _applicationDbContext;
 
-        public DailyAttendanceRepository(ApplicationDbContext applicationDbContext)
+		#region Constructor
+		public DailyAttendanceRepository(ApplicationDbContext applicationDbContext)
         {
 			_applicationDbContext = applicationDbContext;
         }
-
+		#endregion
 		public IList<EmployeeViewModel> GetActiveEmployee()
 		{
 			return _applicationDbContext.Employees.Where(w => w.IsActive).Select(s => new EmployeeViewModel
@@ -22,7 +23,7 @@ namespace CloudHRMS.Repositories
 				No = s.No + "|" + s.FullName
 			}).ToList();
 		}
-		public IList<DepartmentViewModel> GetAcitiveDepartment()
+		public IList<DepartmentViewModel> GetActiveDepartment()
 		{
 			return _applicationDbContext.Departments.Where(w => w.IsActive).Select(s => new DepartmentViewModel
 			{
@@ -30,13 +31,14 @@ namespace CloudHRMS.Repositories
 				Code = s.Code + "|" + s.Description
 			}).ToList();
 		}
-        public void Create(DailyAttendanceViewModel dailyAttendanceView)
+		#region Create
+		public void Create(DailyAttendanceViewModel dailyAttendanceView)
 		{
 			try
 			{
 				DailyAttendanceEntity dailyAttendanceEntity = new DailyAttendanceEntity()
 				{
-					Id = dailyAttendanceView.Id,
+					Id = Guid.NewGuid().ToString(),
 					AttendanceDate = dailyAttendanceView.AttendanceDate,
 					InTime = dailyAttendanceView.InTime,
 					OutTime = dailyAttendanceView.OutTime,
@@ -46,7 +48,7 @@ namespace CloudHRMS.Repositories
 					DepartmentId = dailyAttendanceView.DepartmentId,
 					EmployeeId = dailyAttendanceView.EmployeeId
 				};
-				_applicationDbContext.Add(dailyAttendanceEntity);
+				_applicationDbContext.DailyAttendances.Add(dailyAttendanceEntity);
 				_applicationDbContext.SaveChanges();
 			}
 			catch (Exception e)
@@ -55,7 +57,9 @@ namespace CloudHRMS.Repositories
 				throw e;
 			}
 		}
+		#endregion
 
+		#region Delete
 		public void Delete(string Id)
 		{
 			var existingDailyAttendance = _applicationDbContext.DailyAttendances.Where(w => w.Id == Id).SingleOrDefault();
@@ -66,7 +70,9 @@ namespace CloudHRMS.Repositories
 				_applicationDbContext.SaveChanges();
 			}									
 		}
+		#endregion
 
+		#region GetById
 		public DailyAttendanceViewModel GetById(string Id)
 		{
 			var dailyAttendance = _applicationDbContext.DailyAttendances.Where(w => w.Id == Id)
@@ -79,7 +85,9 @@ namespace CloudHRMS.Repositories
 																		}).SingleOrDefault();
 			return dailyAttendance;
 		}
+		#endregion
 
+		#region Reterieve
 		public IList<DailyAttendanceViewModel> ReterieveAll()
 		{
 			IList<DailyAttendanceViewModel> dailyAttendance = (from da in _applicationDbContext.DailyAttendances
@@ -99,7 +107,9 @@ namespace CloudHRMS.Repositories
 															   }).ToList();
 			return dailyAttendance;
 		}
+		#endregion
 
+		#region Update
 		public void Update(DailyAttendanceViewModel dailyAttendanceView)
 		{
 
@@ -121,5 +131,9 @@ namespace CloudHRMS.Repositories
 				throw e;
 			}
 		}
+		#endregion
+
+
+
 	}
 }

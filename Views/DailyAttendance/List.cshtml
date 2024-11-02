@@ -1,8 +1,13 @@
-﻿@model IList<DailyAttendanceViewModel>
+﻿<head>
+	<!--for JQuery plugin-->
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+</head>
+@model IList<DailyAttendanceViewModel>
 
-<h1>Daily Attendance List</h1>
-<table class="table-hover">
-	<thead class="table table-dark">
+<h1 class="mb-3">Daily Attendance List</h1>
+<a href="/dailyAttendance/Entry" class="btn btn-success mb-3">Create</a>
+<table class="table table-hover" id="DailyAttendanceTable">
+	<thead class="table-dark">
 		<tr>
 			<th scope="col">No</th>
 			<th scope="col">Daily Attendance</th>
@@ -21,8 +26,8 @@
 		@foreach(var dailyAttendance in Model)
 		{
 			<tr>
-				<td>@i</td>
-				<td>@dailyAttendance.AttendanceDate</td>
+				<td scope="row">@i</td>
+				<td>@dailyAttendance.AttendanceDate.ToString("yyyy-MM-dd")</td>
 				<td>@dailyAttendance.OutTime</td>
 				<td>@dailyAttendance.InTime</td>
 				<td>@dailyAttendance.EmployeeInfo</td>
@@ -37,3 +42,8 @@
 		
 	</tbody>
 </table>
+<script>
+	$(document).ready(function () {
+		$('#DailyAttendanceTable').DataTable();
+	});
+</script>

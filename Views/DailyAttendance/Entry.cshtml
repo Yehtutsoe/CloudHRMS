@@ -1,4 +1,5 @@
-﻿<h1>Daily Attendance Form</h1>
+﻿@using CloudHRMS.Models.ViewModels
+<h1>Daily Attendance Entry Form</h1>
 <form action="/DailyAttendance/entry" method="post">
 	<div class="mb-3">
 		<label for="AttendanceDate" class="form-label">Attendance Date</label>
@@ -12,23 +13,28 @@
 		<label for="OutTime" class="form-label">Out Time</label>
 		<input type="time" class="form-control" name="OutTime" placeholder="Enter Attendance" required>
 	</div>
-	<div class="mb-3">
-		<label for="EmployeeId">Employee</label>
-		<select class="form-select" name="EmployeeId">
-			<option value="">[Select Employee]</option>
-		
-			
-				<option value=""></option>
-			
-		</select>
-	</div>
-	<div class="mb-3">
-		<label for="DepartmentId">Department</label>
-		<select class="form-select" name="DepartmentId">
-			<option value="">[Select Department]</option>
-		</select>
-	</div>
 
-	<buttton class="btn btn-primary" type="submiy">Submit</buttton>
-	<a href="/DailyAttendance/entry" class="btn btn-warning">Cancel</a>
+	<div class="mb-3">
+		<label for="Employee">Employee</label>
+		<select class="form-select" name="EmployeeId" id="Employee">
+			<option value="">[Select Employee]</option>
+			@foreach (var employee in Model.EmployeeViewModels)
+			{
+				<option value="@employee.Id">@employee.FullName</option>
+			}
+		</select>
+	</div>
+	
+	<div class="mb-3">
+		<label for="Department">Department</label>
+		<select class="form-select" name="DepartmentId" id="Department">
+			<option value="">[Select Department]</option>
+			@foreach(var department in Model.DepartmentViewModels)
+			{
+				<option value="@department.Id">@department.Code</option>
+			}
+		</select>
+	</div>
+	<button class="btn btn-primary" type="submit">Save</button>
+	<a href="/DailyAttendance/List" class="btn btn-warning">Cancel</a>
 </form>

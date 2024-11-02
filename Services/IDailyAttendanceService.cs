@@ -4,6 +4,7 @@ namespace CloudHRMS.Services
 {
 	public interface IDailyAttendanceService
 	{
+		DailyAttendanceViewModel PreparedEntryForm();
 		void Create(DailyAttendanceViewModel dailyAttendanceView);
 		IList<DailyAttendanceViewModel> ReterieveAll();
 		DailyAttendanceViewModel GetById(string Id);

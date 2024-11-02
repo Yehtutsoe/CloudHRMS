@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Net;
 using System.Net.Sockets;
 using Microsoft.Extensions.Caching.Memory;
@@ -7,13 +7,13 @@ namespace CloudHRMS.Utility.NetworkHelper
 {
     public static class NetworkHelper
     {
-        private static readonly TimeSpan CacheExpiration = TimeSpan.FromMinutes(10);
+        private static readonly TimeSpan CacheExpiration = TimeSpan.FromMinutes(30);
 
         // Get Public IP of Machine (cached)
         public static string GetMachinePublicIP(IMemoryCache cache)
         {
             string cacheKey = "MachinePublicIP";
-            
+
             // Check if IP address is already cached
             if (!cache.TryGetValue(cacheKey, out string publicIP))
             {

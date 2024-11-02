@@ -27,6 +27,8 @@ builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 builder.Services.AddScoped<IAttendancePolicyService, AttendancePolicyService>();
 builder.Services.AddScoped<IAttendancePolicyRepository, AttendancePolicyRepository>();
+builder.Services.AddScoped<IDailyAttendanceService, DailyAttendanceService>();
+builder.Services.AddScoped<IDailyAttendanceRepository, DailyAttendanceRepository>();
 //builder.Services.AddScoped<IUserService, UserService>();
 var app = builder.Build();
 

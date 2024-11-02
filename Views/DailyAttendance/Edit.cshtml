@@ -19,7 +19,8 @@
 	}
 }
 
-<h1 class="display-2">Department Update Form</h1>
+<h1 class="display-2">Daily Attendance Update Form</h1>
+
 
 <form action="/DailyAttendance/Update" method="post">
 
@@ -27,24 +28,20 @@
 			<input type="hidden" value="@Model.Id" name="Id" class="form-control">
 		</div>
 		<div class="mb-3">
-			<label for="AttendanceDate" class="from-label">Attendance Date</label>
-			<input type="date" value="@Model.AttendanceDate" name="AttendanceDate" class="form-control" placeholder="Enter Attendance Date">
+			<label for="AttendanceDate" class="from-label">Attendance Date-</label>
+			<input type="date" value="@Model.AttendanceDate.ToString("yyyy-MM-dd")" name="AttendanceDate" class="form-control">
 		</div>
 
 		<div class="mb-3">
-			<label for="OutTime" class="from-label">OutTime</label>
-			<input type="date" value="@Model.OutTime" name="OutTime" class="form-control" placeholder="Enter OutTime">
+			<label for="InTime" class="from-label">InTime:</label>
+			<input type="time" value="@Model.InTime.ToString()" name="Intime" class="form-control">
 		</div>
 		<div class="mb-3">
-			<label for="InTime" class="from-label">InTime</label>
-			<input type="date" value="@Model.InTime" name="InTime" class="form-control" placeholder="Enter InTime">
-		</div>
-		<div class="mb-3">
-			<label for="InTime" class="from-label">InTime</label>
-			<input type="date" value="@Model.InTime" name="InTime" class="form-control" placeholder="Enter InTime">
+			<label for="OutTime" class="from-label">OutTime:</label>
+			<input type="time" value="@Model.OutTime.ToString()" name="OutTime" class="form-control">
 		</div>
 
-	<button type="submit" class="btn btn-primary mb-3">Save</button>
-	<a href="/department/list" class="btn btn-warning">Cancel</a>
+	<button type="submit" class="btn btn-primary">Save</button>
+	<a href="/dailyAttendance/list" class="btn btn-warning">Cancel</a>
 </form>
 

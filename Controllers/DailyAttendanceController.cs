@@ -20,7 +20,7 @@ namespace CloudHRMS.Controllers
 		[Authorize(Roles = "HR")]
 		public IActionResult Entry()
         {
-            return View();
+            return View(_dailyAttendanceService.PreparedEntryForm());
         }
 		#region Create
 		[Authorize(Roles ="HR")]

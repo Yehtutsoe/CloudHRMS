@@ -34,7 +34,7 @@ namespace CloudHRMS.Services
 
 		public DailyAttendanceViewModel GetById(string Id)
 		{
-			throw new NotImplementedException();
+			return _dailyAttendanceRepository.GetById(Id);
 		}
 
 		public IList<DailyAttendanceViewModel> ReterieveAll()
@@ -44,7 +44,7 @@ namespace CloudHRMS.Services
 
 		public void Update(DailyAttendanceViewModel dailyAttendanceView)
 		{
-			throw new NotImplementedException();
+			_dailyAttendanceRepository.Update(dailyAttendanceView);
 		}
 	}
 }

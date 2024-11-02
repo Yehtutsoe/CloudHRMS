@@ -1,5 +1,6 @@
 ﻿using CloudHRMS.Models.ViewModels;
 using CloudHRMS.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CloudHRMS.Controllers
@@ -18,7 +19,7 @@ namespace CloudHRMS.Controllers
 		{
 			return View();
 		}
-
+		[Authorize(Roles ="HR")]
 		[HttpPost]
 		public IActionResult Entry(DepartmentViewModel departmentViewModel)
 		{
@@ -39,9 +40,9 @@ namespace CloudHRMS.Controllers
 
 
 		public IActionResult List() => View(_departmentService.RetireveAll());
-
+		[Authorize(Roles ="HR")]
 		public IActionResult Edit(string Id)=>View(_departmentService.GetById(Id));
-
+		[Authorize(Roles ="HR")]
 		[HttpPost]
 		public IActionResult Update(DepartmentViewModel departmentViewModel)
 		{
@@ -60,7 +61,7 @@ namespace CloudHRMS.Controllers
 
 			return RedirectToAction("List");
 		}
-
+		[Authorize(Roles ="HR")]
 		public IActionResult Delete(string Id)
 		{
 			try

@@ -1,7 +1,6 @@
 ﻿using CloudHRMS.Models.ViewModels;
 using CloudHRMS.Repositories;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
 
 namespace CloudHRMS.Services
 {

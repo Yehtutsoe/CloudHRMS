@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
+﻿
 namespace CloudHRMS.Models.ViewModels
 {
 	public class DepartmentViewModel
