@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CloudHRMS.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241028020117_CreateTable")]
-    partial class CreateTable
+    [Migration("20241102132938_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -31,11 +31,13 @@ namespace CloudHRMS.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("CreatedAt")
+                        .HasMaxLength(15)
                         .HasColumnType("datetime2");
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
 
                     b.Property<decimal>("DeductionInAmount")
                         .HasColumnType("decimal(18,2)");
@@ -48,6 +50,7 @@ namespace CloudHRMS.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsActive")
+                        .HasMaxLength(6)
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
@@ -61,10 +64,12 @@ namespace CloudHRMS.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("UpdatedAt")
+                        .HasMaxLength(15)
                         .HasColumnType("datetime2");
 
                     b.Property<string>("UpdatedBy")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(12)
+                        .HasColumnType("nvarchar(12)");
 
                     b.HasKey("Id");
 
@@ -77,14 +82,17 @@ namespace CloudHRMS.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("AttendanceDate")
+                        .HasMaxLength(15)
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("CreatedAt")
+                        .HasMaxLength(15)
                         .HasColumnType("datetime2");
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
 
                     b.Property<string>("DepartmentId")
                         .IsRequired()
@@ -95,6 +103,7 @@ namespace CloudHRMS.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<TimeSpan>("InTime")
+                        .HasMaxLength(15)
                         .HasColumnType("time");
 
                     b.Property<string>("IpAddress")
@@ -102,16 +111,20 @@ namespace CloudHRMS.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsActive")
+                        .HasMaxLength(6)
                         .HasColumnType("bit");
 
                     b.Property<TimeSpan>("OutTime")
+                        .HasMaxLength(15)
                         .HasColumnType("time");
 
                     b.Property<DateTime?>("UpdatedAt")
+                        .HasMaxLength(15)
                         .HasColumnType("datetime2");
 
                     b.Property<string>("UpdatedBy")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(12)
+                        .HasColumnType("nvarchar(12)");
 
                     b.HasKey("Id");
 
@@ -129,35 +142,43 @@ namespace CloudHRMS.Migrations
 
                     b.Property<string>("Code")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(8)
+                        .HasColumnType("nvarchar(8)");
 
                     b.Property<DateTime>("CreatedAt")
+                        .HasMaxLength(15)
                         .HasColumnType("datetime2");
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("ExtensionPhone")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(12)
+                        .HasColumnType("nvarchar(12)");
 
                     b.Property<string>("IpAddress")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsActive")
+                        .HasMaxLength(6)
                         .HasColumnType("bit");
 
                     b.Property<DateTime?>("UpdatedAt")
+                        .HasMaxLength(15)
                         .HasColumnType("datetime2");
 
                     b.Property<string>("UpdatedBy")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(12)
+                        .HasColumnType("nvarchar(12)");
 
                     b.HasKey("Id");
 
@@ -174,11 +195,13 @@ namespace CloudHRMS.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedAt")
+                        .HasMaxLength(15)
                         .HasColumnType("datetime2");
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
 
                     b.Property<DateTime>("DOB")
                         .HasColumnType("datetime2");
@@ -211,6 +234,7 @@ namespace CloudHRMS.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsActive")
+                        .HasMaxLength(6)
                         .HasColumnType("bit");
 
                     b.Property<string>("No")
@@ -231,10 +255,12 @@ namespace CloudHRMS.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<DateTime?>("UpdatedAt")
+                        .HasMaxLength(15)
                         .HasColumnType("datetime2");
 
                     b.Property<string>("UpdatedBy")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(12)
+                        .HasColumnType("nvarchar(12)");
 
                     b.Property<string>("UserId")
                         .IsRequired()
@@ -256,38 +282,103 @@ namespace CloudHRMS.Migrations
 
                     b.Property<string>("Code")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<DateTime>("CreatedAt")
+                        .HasMaxLength(15)
                         .HasColumnType("datetime2");
 
                     b.Property<string>("CreatedBy")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(25)
+                        .HasColumnType("nvarchar(25)");
 
                     b.Property<string>("IpAddress")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsActive")
+                        .HasMaxLength(6)
                         .HasColumnType("bit");
 
                     b.Property<int>("Level")
+                        .HasMaxLength(3)
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("UpdatedAt")
+                        .HasMaxLength(15)
                         .HasColumnType("datetime2");
 
                     b.Property<string>("UpdatedBy")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(12)
+                        .HasColumnType("nvarchar(12)");
 
                     b.HasKey("Id");
 
                     b.ToTable("Position");
+                });
+
+            modelBuilder.Entity("CloudHRMS.Models.Entities.ShiftEntity", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("AttendancePolicyId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasMaxLength(15)
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.Property<TimeSpan>("EarlyOutBefore")
+                        .HasColumnType("time");
+
+                    b.Property<TimeSpan>("InTime")
+                        .HasColumnType("time");
+
+                    b.Property<string>("IpAddress")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasMaxLength(6)
+                        .HasColumnType("bit");
+
+                    b.Property<TimeSpan>("LateAfter")
+                        .HasColumnType("time");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<TimeSpan>("OutTime")
+                        .HasColumnType("time");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasMaxLength(15)
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(12)
+                        .HasColumnType("nvarchar(12)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AttendancePolicyId");
+
+                    b.ToTable("Shifts");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -524,6 +615,17 @@ namespace CloudHRMS.Migrations
                     b.Navigation("Department");
 
                     b.Navigation("Position");
+                });
+
+            modelBuilder.Entity("CloudHRMS.Models.Entities.ShiftEntity", b =>
+                {
+                    b.HasOne("CloudHRMS.Models.Entities.AttendancePolicyEntity", "AttendancePolicy")
+                        .WithMany()
+                        .HasForeignKey("AttendancePolicyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AttendancePolicy");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

@@ -8,5 +8,7 @@
         public TimeSpan OutTime { get; set; }
         public TimeSpan LateAfter { get; set; }
         public TimeSpan EarlyOutBefore { get; set; }
+        public string AttendancePolicyId { get; set; }
+        public IList<AttendancePolicyViewModel> AttendancePolicyViewsModel { get; set; } //for UI Binding
     }
 }

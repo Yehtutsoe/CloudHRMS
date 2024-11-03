@@ -19,13 +19,13 @@ namespace CloudHRMS.Controllers
 		}
 		#endregion
 
-		[Authorize(Roles = "HR")]
+		//[Authorize(Roles = "HR")]
         public IActionResult Entry() {
 			return View(_employeeService.PrepareEntryForm());
 		}
 
 		#region Create
-		[Authorize(Roles ="HR")]
+		//[Authorize(Roles ="HR")]
 		[HttpPost]
 		public async Task<IActionResult> Entry(EmployeeViewModel employeeViewModel)
 		{

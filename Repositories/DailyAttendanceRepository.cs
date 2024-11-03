@@ -1,18 +1,20 @@
 ﻿using CloudHRMS.DAO;
 using CloudHRMS.Models.Entities;
 using CloudHRMS.Models.ViewModels;
-using CloudHRMS.Utility.Network;
-
+using CloudHRMS.Utility.NetworkHelper;
+using Microsoft.Extensions.Caching.Memory;
 namespace CloudHRMS.Repositories
 {
 	public class DailyAttendanceRepository : IDailyAttendanceRepository
 	{
 		private readonly ApplicationDbContext _applicationDbContext;
+		private readonly IMemoryCache _cache;
 
 		#region Constructor
-		public DailyAttendanceRepository(ApplicationDbContext applicationDbContext)
+		public DailyAttendanceRepository(ApplicationDbContext applicationDbContext, IMemoryCache cache)
         {
 			_applicationDbContext = applicationDbContext;
+			_cache =cache;
         }
 		#endregion
 		public IList<EmployeeViewModel> GetActiveEmployee()
@@ -45,6 +47,7 @@ namespace CloudHRMS.Repositories
 					CreatedBy = "System",
 					CreatedAt = DateTime.Now,
 					IsActive = true,
+					IpAddress = NetworkHelper.GetMachinePublicIP(_cache),
 					DepartmentId = dailyAttendanceView.DepartmentId,
 					EmployeeId = dailyAttendanceView.EmployeeId
 				};
@@ -122,7 +125,7 @@ namespace CloudHRMS.Repositories
 				existingDailyAttendace.IsActive = true;
 				existingDailyAttendace.UpdatedBy = "System";
 				existingDailyAttendace.UpdatedAt = DateTime.Now;
-				existingDailyAttendace.IpAddress = NetworkHelper.GetMechinePublicIP();
+				existingDailyAttendace.IpAddress = NetworkHelper.GetMachinePublicIP(_cache);
 				_applicationDbContext.Update(existingDailyAttendace);
 				_applicationDbContext.SaveChanges();
 			}

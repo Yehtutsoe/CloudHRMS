@@ -19,7 +19,7 @@ namespace CloudHRMS.Controllers
 		{
 			return View();
 		}
-		[Authorize(Roles ="HR")]
+		//[Authorize(Roles ="HR")]
 		[HttpPost]
 		public IActionResult Entry(DepartmentViewModel departmentViewModel)
 		{

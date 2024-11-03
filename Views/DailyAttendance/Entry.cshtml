@@ -1,4 +1,5 @@
-﻿@using CloudHRMS.Models.ViewModels
+﻿@model DailyAttendanceViewModel;
+
 <h1>Daily Attendance Entry Form</h1>
 <form action="/DailyAttendance/entry" method="post">
 	<div class="mb-3">
@@ -20,7 +21,7 @@
 			<option value="">[Select Employee]</option>
 			@foreach (var employee in Model.EmployeeViewModels)
 			{
-				<option value="@employee.Id">@employee.FullName</option>
+				<option value="@employee.Id">@employee.No</option>
 			}
 		</select>
 	</div>

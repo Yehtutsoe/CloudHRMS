@@ -1,0 +1,39 @@
+﻿@model IList<ShiftViewModel>
+
+<table class="table table-hover">
+
+    <thead>
+        <tr>
+            <th scope="col">No</th>
+            <th scope="col">Name</th>
+            <th scope="col">In Time:</th>
+            <th scope="col">Out Time</th>
+            <th scope="col">Late After</th>
+            <th scope="col">Early Out Before</th>
+            <th scope="col">Action</th>
+        </tr>
+     </thead>
+    <tbody>
+        @{
+            var i = 1;
+        }
+        @foreach(var shift in Model)
+        {
+            <tr>
+                <td scope="row">@i</td>
+                <td>@shift.Name</td>
+                <td>@shift.InTime</td>
+                <td>@shift.OutTime</td>
+                <td>@shift.LateAfter</td>
+                <td>@shift.EarlyOutBefore</td>
+                <td>
+                    <a href="/shift/Edit?id=@shift.Id" class="btn btn-primary">Edit</a>
+                    <a href="/shift/Delete?id=@shift.Id" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+        i++;
+       
+    </tbody>
+
+</table>

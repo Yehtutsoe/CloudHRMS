@@ -1,0 +1,29 @@
+﻿@model ShiftViewModel
+<h1>Shift Entry Form</h1>
+<form action="/shift/Update" method="post">
+    <div class="mb-3">
+        <label for="Name" class="form-label">Name</label>
+        <input type="text" value="@Model.Name" class="form-control" placeholder="Enter Name" />
+    </div>
+    <div class="mb-3">
+        <label for="InTime" class="form-label">InTime</label>
+        <input type="time" value="@Model.InTime" class="form-control" placeholder="Enter In Time" />
+    </div>
+    <div class="mb-3">
+        <label for="OutTime" class="form-label">OutTime</label>
+        <input type="time" value="@Model.OutTime" class="form-control" placeholder="Enter Out Time" />
+    </div>
+    </div>
+    <div class="mb-3">
+        <label for="LateAfter" class="form-label">Late After</label>
+        <input type="time" value="@Model.LateAfter" class="form-control" placeholder="Enter Late After" />
+    </div>
+    </div>
+    <div class="mb-3">
+        <label for="EarlyOutTime" class="form-label">Early Out Time</label>
+        <input type="time" value="@Model.EarlyOutBefore" class="form-control" placeholder="Enter Early Out Time" />
+    </div>
+
+    <button type="submit" class="btn btn-success">Submit</button>
+    <a href="/shift/list" class="btn btn-warning">Cancel</a>
+</form>

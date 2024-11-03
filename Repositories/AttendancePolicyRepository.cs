@@ -2,18 +2,21 @@
 using CloudHRMS.DAO;
 using CloudHRMS.Models.Entities;
 using CloudHRMS.Models.ViewModels;
-using CloudHRMS.Utility.Network;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using CloudHRMS.Utility.NetworkHelper;
+using Microsoft.Extensions.Caching.Memory;
+
 
 namespace CloudHRMS.Repositories
 {
 	public class AttendancePolicyRepository : IAttendancePolicyRepository
 	{
 		private readonly ApplicationDbContext _applicationDbContext;
+		private readonly IMemoryCache _cache;
 
-        public AttendancePolicyRepository(ApplicationDbContext applicationDbContext)
+        public AttendancePolicyRepository(ApplicationDbContext applicationDbContext, IMemoryCache cache)
         {
 			_applicationDbContext = applicationDbContext;
+			_cache = cache;
         }
         public void Create(AttendancePolicyViewModel attendancePolicyView)
 		{
@@ -30,7 +33,7 @@ namespace CloudHRMS.Repositories
 					CreatedAt = DateTime.Now,
 					CreatedBy = "System",
 					IsActive = true,
-					IpAddress = NetworkHelper.GetMechinePublicIP(),
+					IpAddress = NetworkHelper.GetMachinePublicIP(_cache),
 				};
 				_applicationDbContext.Add(attendancePolicyEntity);
 				_applicationDbContext.SaveChanges();
@@ -105,7 +108,7 @@ namespace CloudHRMS.Repositories
 				existingAttendancePolicy.DeductionInDay = attendancePolicyView.DeductionInDay;
 				existingAttendancePolicy.UpdatedBy = "System";
 				existingAttendancePolicy.UpdatedAt = DateTime.Now;
-				existingAttendancePolicy.IpAddress = NetworkHelper.GetMechinePublicIP();
+				existingAttendancePolicy.IpAddress = NetworkHelper.GetMachinePublicIP(_cache);
 				_applicationDbContext.SaveChanges();
 			}
 			catch (Exception e)

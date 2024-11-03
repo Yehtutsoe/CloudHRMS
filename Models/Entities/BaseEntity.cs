@@ -1,4 +1,5 @@
-﻿using CloudHRMS.Utility.Network;
+﻿
+using CloudHRMS.Utility.NetworkHelper;
 using System.ComponentModel.DataAnnotations;
 
 namespace CloudHRMS.Models.Entities
@@ -15,7 +16,7 @@ namespace CloudHRMS.Models.Entities
 		public DateTime? UpdatedAt { get; set; }
 		[MaxLength(12)]
 		public string? UpdatedBy { get; set; }
-        public string IpAddress { get; set; } = NetworkHelper.GetMechinePublicIP();
+		public string IpAddress { get; set; }
 		[MaxLength(6)]
 		public bool IsActive { get; set; }
     }

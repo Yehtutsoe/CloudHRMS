@@ -1,4 +1,4 @@
-﻿@using CloudHRMS.Models.ViewModels
+﻿@model EmployeeViewModel;
 @{
 	var error = (ErrorViewModel)ViewBag.Msg;
 	if (error != null)
@@ -25,12 +25,12 @@
 <form action="/employee/entry" method="post">
 	<div class="col-5">
 		<div class="mb-3">
-			<lable for="No" class="form-label">Code</lable>
+			<label for="No" class="form-label">Code</label>
 			<input type="text" name="No" class="form-control" required placeholder="Enter No" />
 		</div>
 
 		<div class="mb-3">
-			<lable for="FullName" class="form-label">Name</lable>
+			<label for="FullName" class="form-label">Name</label>
 			<input type="text" name="FullName" class="form-control" required placeholder="Enter Your Name" />
 		</div>
 		<div class="mb-3">

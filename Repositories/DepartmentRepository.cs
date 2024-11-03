@@ -1,17 +1,20 @@
 ﻿using CloudHRMS.DAO;
 using CloudHRMS.Models.Entities;
 using CloudHRMS.Models.ViewModels;
-using CloudHRMS.Utility.Network;
+using CloudHRMS.Utility.NetworkHelper;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace CloudHRMS.Repositories
 {
 	public class DepartmentRepository : IDepartmentRepository
 	{
 		private readonly ApplicationDbContext _applicationDbContext;
+		private readonly IMemoryCache _cache;
 
-		public DepartmentRepository(ApplicationDbContext applicationDbContext)
+		public DepartmentRepository(ApplicationDbContext applicationDbContext, IMemoryCache cache)
 		{
 			_applicationDbContext = applicationDbContext;
+			_cache = cache;
 		}
 		public void Create(DepartmentViewModel departmentView)
 		{
@@ -25,7 +28,7 @@ namespace CloudHRMS.Repositories
 					Description = departmentView.Description,
 					ExtensionPhone = departmentView.ExtensionPhone,
 					IsActive = true,
-					IpAddress = NetworkHelper.GetMechinePublicIP(),
+					IpAddress = NetworkHelper.GetMachinePublicIP(_cache),
 					CreatedAt = DateTime.Now,
 					CreatedBy = "System"
 
@@ -95,7 +98,7 @@ namespace CloudHRMS.Repositories
 				existingDepartmentEntity.CreatedBy = "system";
 				existingDepartmentEntity.CreatedAt = DateTime.Now;
 				existingDepartmentEntity.IsActive = true;
-				existingDepartmentEntity.IpAddress = NetworkHelper.GetMechinePublicIP();
+				existingDepartmentEntity.IpAddress = NetworkHelper.GetMachinePublicIP(_cache);
 				_applicationDbContext.Departments.Update(existingDepartmentEntity);
 				_applicationDbContext.SaveChanges();
 			}

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace CloudHRMS.Migrations
 {
     /// <inheritdoc />
-    public partial class CreateTable : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -60,12 +60,12 @@ namespace CloudHRMS.Migrations
                     NumberOfEarlyOutTimes = table.Column<int>(type: "int", nullable: false),
                     DeductionInAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     DeductionInDay = table.Column<int>(type: "int", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", maxLength: 15, nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", maxLength: 15, nullable: true),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(12)", maxLength: 12, nullable: true),
                     IpAddress = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false)
+                    IsActive = table.Column<bool>(type: "bit", maxLength: 6, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -77,15 +77,15 @@ namespace CloudHRMS.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Code = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ExtensionPhone = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Code = table.Column<string>(type: "nvarchar(8)", maxLength: 8, nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    ExtensionPhone = table.Column<string>(type: "nvarchar(12)", maxLength: 12, nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", maxLength: 15, nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", maxLength: 15, nullable: true),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(12)", maxLength: 12, nullable: true),
                     IpAddress = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false)
+                    IsActive = table.Column<bool>(type: "bit", maxLength: 6, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -97,15 +97,15 @@ namespace CloudHRMS.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Code = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Level = table.Column<int>(type: "int", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Code = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: false),
+                    Level = table.Column<int>(type: "int", maxLength: 3, nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", maxLength: 15, nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", maxLength: 15, nullable: true),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(12)", maxLength: 12, nullable: true),
                     IpAddress = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false)
+                    IsActive = table.Column<bool>(type: "bit", maxLength: 6, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -219,6 +219,35 @@ namespace CloudHRMS.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Shifts",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    InTime = table.Column<TimeSpan>(type: "time", nullable: false),
+                    OutTime = table.Column<TimeSpan>(type: "time", nullable: false),
+                    LateAfter = table.Column<TimeSpan>(type: "time", nullable: false),
+                    EarlyOutBefore = table.Column<TimeSpan>(type: "time", nullable: false),
+                    AttendancePolicyId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", maxLength: 15, nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", maxLength: 15, nullable: true),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(12)", maxLength: 12, nullable: true),
+                    IpAddress = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", maxLength: 6, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Shifts", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Shifts_AttendancePolicy_AttendancePolicyId",
+                        column: x => x.AttendancePolicyId,
+                        principalTable: "AttendancePolicy",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Employee",
                 columns: table => new
                 {
@@ -236,12 +265,12 @@ namespace CloudHRMS.Migrations
                     DepartmentId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     PositionId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     UserId = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", maxLength: 15, nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", maxLength: 15, nullable: true),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(12)", maxLength: 12, nullable: true),
                     IpAddress = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false)
+                    IsActive = table.Column<bool>(type: "bit", maxLength: 6, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -265,17 +294,17 @@ namespace CloudHRMS.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    AttendanceDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    InTime = table.Column<TimeSpan>(type: "time", nullable: false),
-                    OutTime = table.Column<TimeSpan>(type: "time", nullable: false),
+                    AttendanceDate = table.Column<DateTime>(type: "datetime2", maxLength: 15, nullable: false),
+                    InTime = table.Column<TimeSpan>(type: "time", maxLength: 15, nullable: false),
+                    OutTime = table.Column<TimeSpan>(type: "time", maxLength: 15, nullable: false),
                     EmployeeId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     DepartmentId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", maxLength: 15, nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", maxLength: 15, nullable: true),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(12)", maxLength: 12, nullable: true),
                     IpAddress = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false)
+                    IsActive = table.Column<bool>(type: "bit", maxLength: 6, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -352,6 +381,11 @@ namespace CloudHRMS.Migrations
                 name: "IX_Employee_PositionId",
                 table: "Employee",
                 column: "PositionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Shifts_AttendancePolicyId",
+                table: "Shifts",
+                column: "AttendancePolicyId");
         }
 
         /// <inheritdoc />
@@ -373,10 +407,10 @@ namespace CloudHRMS.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "AttendancePolicy");
+                name: "DailyAttendance");
 
             migrationBuilder.DropTable(
-                name: "DailyAttendance");
+                name: "Shifts");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
@@ -386,6 +420,9 @@ namespace CloudHRMS.Migrations
 
             migrationBuilder.DropTable(
                 name: "Employee");
+
+            migrationBuilder.DropTable(
+                name: "AttendancePolicy");
 
             migrationBuilder.DropTable(
                 name: "Department");

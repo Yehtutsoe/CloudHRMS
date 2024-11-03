@@ -2,18 +2,21 @@
 using CloudHRMS.Models.Entities;
 using CloudHRMS.Models.ViewModels;
 using CloudHRMS.Services;
-using CloudHRMS.Utility.Network;
+using CloudHRMS.Utility.NetworkHelper;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace CloudHRMS.Repositories
 {
 	public class EmployeeRepository : IEmployeeRepository
 	{
 		private readonly ApplicationDbContext _applicationDbContext;
+		private readonly IMemoryCache _cache;
 		//private readonly IUserService _userService;
 
-		public EmployeeRepository(ApplicationDbContext applicationDbContext)
+		public EmployeeRepository(ApplicationDbContext applicationDbContext, IMemoryCache cache)
         {
 			_applicationDbContext = applicationDbContext;
+			_cache = cache;
 			//_userService = userService;
 		}
 		public async Task Create(EmployeeViewModel employeeViewModel)
@@ -44,7 +47,7 @@ namespace CloudHRMS.Repositories
                         CreatedAt = DateTime.Now,
                         CreatedBy = "System",
                         IsActive = true,
-                        IpAddress = NetworkHelper.GetMechinePublicIP(),
+                        IpAddress = NetworkHelper.GetMachinePublicIP(_cache),
                         DepartmentId = employeeViewModel.DepartmentId,
                         PositionId = employeeViewModel.PositionId,
                         UserId = employeeViewModel.UserId                    };
@@ -164,7 +167,7 @@ namespace CloudHRMS.Repositories
 				existingEmployeeEntity.CreatedAt = DateTime.Now;
 				existingEmployeeEntity.CreatedBy = "System";
 				existingEmployeeEntity.IsActive = true;
-				existingEmployeeEntity.IpAddress = NetworkHelper.GetMechinePublicIP();
+				existingEmployeeEntity.IpAddress = NetworkHelper.GetMachinePublicIP(_cache);
 
 				_applicationDbContext.Employees.Update(existingEmployeeEntity);
 				_applicationDbContext.SaveChanges();

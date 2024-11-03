@@ -1,18 +1,20 @@
 ﻿using CloudHRMS.DAO;
 using CloudHRMS.Models.Entities;
 using CloudHRMS.Models.ViewModels;
-using CloudHRMS.Utility.Network;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+using CloudHRMS.Utility.NetworkHelper;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace CloudHRMS.Repositories
 {
 	public class PositionRepository : IPositionRepository
 	{
 		private readonly ApplicationDbContext _applicationDbContext;
+		private readonly IMemoryCache _cache;
 
-		public PositionRepository(ApplicationDbContext applicationDbContext)
+		public PositionRepository(ApplicationDbContext applicationDbContext, IMemoryCache cache)
 		{
 			_applicationDbContext = applicationDbContext;
+			_cache = cache;
 		}
 		public void Create(PositionViewModel positionView)
 		{
@@ -27,14 +29,14 @@ namespace CloudHRMS.Repositories
 					CreatedAt = DateTime.Now,
 					CreatedBy = "System",
 					IsActive = true,
-					IpAddress = NetworkHelper.GetMechinePublicIP()
+					IpAddress = NetworkHelper.GetMachinePublicIP(_cache)
 				};
 				_applicationDbContext.Positions.Add(positionEntity);
 				_applicationDbContext.SaveChanges();
 			}
 			catch (Exception e)
 			{
-				throw;
+				throw e;
 			}
 		}
 
@@ -98,7 +100,7 @@ namespace CloudHRMS.Repositories
 				existingPositionEntity.CreatedAt = DateTime.Now;
 				existingPositionEntity.CreatedBy = "System";
 				existingPositionEntity.IsActive = true;
-				existingPositionEntity.IpAddress = NetworkHelper.GetMechinePublicIP();
+				existingPositionEntity.IpAddress = NetworkHelper.GetMachinePublicIP(_cache);
 
 				_applicationDbContext.Positions.Update(existingPositionEntity);
 				_applicationDbContext.SaveChanges();
