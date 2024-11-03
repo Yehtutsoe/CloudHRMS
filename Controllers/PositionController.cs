@@ -2,7 +2,6 @@
 using CloudHRMS.Models.Entities;
 using CloudHRMS.Models.ViewModels;
 using CloudHRMS.Services;
-using CloudHRMS.Utility.Network;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CloudHRMS.Controllers
