@@ -2,7 +2,6 @@ using CloudHRMS.DAO;
 using CloudHRMS.Repositories;
 using CloudHRMS.Services;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
