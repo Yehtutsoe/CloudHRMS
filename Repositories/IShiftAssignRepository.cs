@@ -9,5 +9,7 @@ namespace CloudHRMS.Repositories
         IList<ShiftAssignViewModel> RetrieveAll();
         public void Delete(string Id);
         public void Update(ShiftAssignViewModel shiftAssignViewModel);
+        IList<EmployeeViewModel> GetActiveEmployee();
+        IList<ShiftViewModel> GetActiveShifts();
     }
 }

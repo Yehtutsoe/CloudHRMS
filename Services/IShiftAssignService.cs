@@ -4,6 +4,7 @@ namespace CloudHRMS.Services
 {
     public interface IShiftAssignService
     {
+        ShiftAssignViewModel PreparyEntryForm();
         public void Create(ShiftAssignViewModel shiftAssignViewModel);
         ShiftAssignViewModel GetById(string Id);
         IList<ShiftAssignViewModel> RetrieveAll();

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CloudHRMS.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241105161449_increase table")]
-    partial class increasetable
+    [Migration("20241106025023_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

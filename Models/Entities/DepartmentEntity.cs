@@ -8,7 +8,7 @@ namespace CloudHRMS.Models.Entities
 	{
         [MaxLength(8)]
         public string Code { get; set; }
-        [MaxLength(20)]
+        [MaxLength(50)]
         public string Description { get; set; }
         [MaxLength(12)]
         public string ExtensionPhone { get; set; }

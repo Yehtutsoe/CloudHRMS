@@ -3,10 +3,11 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
 </head>
 @model IList<ShiftViewModel>
+<h3>Shit List</h3>
+<a href="/shift/entry" class="btn btn-success mb-3">Create</a>
+<table class="table table-hover mb-3" id="shiftTable">
 
-<table class="table table-hover">
-
-    <thead class="table-dark" id="shiftTable">
+    <thead class="table-dark" >
         <tr>
             <th scope="col">No</th>
             <th scope="col">Name</th>
@@ -39,7 +40,7 @@
                 <td>
                      @if(User.IsInRole("HR")){
                     <a href="/shift/Edit?id=@shift.Id" class="btn btn-primary">Edit</a>
-                    <a href="/shift/Delete?id=@shift.Id" class="btn btn-danger">Delete</a>
+                        <a href="/shift/Delete?id=@shift.Id" class="btn btn-danger" onclick="confirm('Are you sure want to Delete')">Delete</a>
                     }
                 </td>
                 
@@ -54,3 +55,4 @@
         $('#shiftTable').DataTable()
     });
 </script>
+

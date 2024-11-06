@@ -9,8 +9,8 @@
         public string EmployeeInfo { get; set; }
         public string ShiftId { get; set; } //CRUD Process
         public string ShiftInfo { get; set; }
-        public IList<EmployeeViewModel> Employees { get; set; } // For UI Binding
-        public IList<ShiftAssignViewModel> Shifts { get; set; } // For UI Binding
+        public IList<EmployeeViewModel> EmployeesViewModel { get; set; } // For UI Binding
+        public IList<ShiftViewModel> ShiftsViewModel { get; set; } // For UI Binding
 
 
     }

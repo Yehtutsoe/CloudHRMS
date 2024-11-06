@@ -60,7 +60,25 @@ namespace CloudHRMS.Repositories
             }
         }
 
-        public ShiftAssignViewModel GetById(string Id)
+		public IList<EmployeeViewModel> GetActiveEmployee()
+		{
+            return _applicationDbContext.Employees.Where(w => w.IsActive).Select(s => new EmployeeViewModel {
+                Id = s.Id,
+                FullName =  s.FullName
+            }).ToList();
+		}
+
+		public IList<ShiftViewModel> GetActiveShifts()
+		{
+           return _applicationDbContext.Shifts.Where(w => w.IsActive).Select(s => new ShiftViewModel
+            {
+               Id = s.Id,
+               Name = s.Name
+
+            }).ToList();
+		}
+
+		public ShiftAssignViewModel GetById(string Id)
         {
             var shiftAssigns = _applicationDbContext.ShiftAssigns.Where(w => w.Id == Id)
                                                                  .Select(s => new ShiftAssignViewModel

@@ -30,8 +30,8 @@ namespace CloudHRMS.Repositories
 					IsActive = true,
 					IpAddress = NetworkHelper.GetMachinePublicIP(_cache),
 					CreatedAt = DateTime.Now,
-					CreatedBy = "System"
-
+					CreatedBy = "System",
+					
 				};
 				_applicationDbContext.Departments.Add(departmentEntity);
 				_applicationDbContext.SaveChanges();

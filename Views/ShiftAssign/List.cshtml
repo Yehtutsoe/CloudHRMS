@@ -1,5 +1,45 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿<head>
+    <!--for JQuery plugin-->
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+</head>
+@model IList<ShiftAssignViewModel>
+<h3>shiftAssign List</h3>
+<a href="/shiftAssign/entry" class="btn btn-success mb-3">Create</a>
+<table class="table table-hover mb-3" id="shiftAssignTable">
+    <thead class="table-dark" >
+        <tr>
+            <th scope="col">No</th>
+            <th scope="col">From Date</th>
+            <th scope="col">To Date</th>
+            <th scope="col">Employee</th>
+            <th scope="col">Shift</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int i = 1;
+        }
+        @foreach (var shiftAssign in Model)
+        {
+            <tr>
+                <td scope="row">@i</td>
+                <td>@shiftAssign.FromDate.ToString("MM-dd-yyyy")</td>
+                <td>@shiftAssign.ToDate.ToString("MM-dd-yyyy")</td>
+                <td>@shiftAssign.EmployeeInfo</td>
+                <td>@shiftAssign.ShiftInfo</td>
+                <td>
+                    <a href="/shiftAssign/Edit?id=@shiftAssign.Id" class="btn btn-primary">Edit</a>
+                    <a href="/shiftAssign/Delete?id=@shiftAssign.Id" class="btn btn-danger" onclick="confirm('Are you sure want to Delete')">Delete</a>
+                </td>
+             </tr>
+            i++;
+        }
+    </tbody>
+</table>
+<script>
+    $(document).ready(function () {
+        $('#shiftAssignTable').DataTable();
+    });
+</script>
+

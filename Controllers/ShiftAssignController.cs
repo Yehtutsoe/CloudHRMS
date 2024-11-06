@@ -15,7 +15,7 @@ namespace CloudHRMS.Controllers
         }
         public IActionResult Entry()
         {
-            return View();
+            return View(_shiftAssignService.PreparyEntryForm());
         }
         [Authorize(Roles ="HR")]
         [HttpPost]

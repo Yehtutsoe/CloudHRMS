@@ -26,7 +26,17 @@ namespace CloudHRMS.Services
             return _shiftAssignRepository.GetById(Id);
         }
 
-        public IList<ShiftAssignViewModel> RetrieveAll()
+		public ShiftAssignViewModel PreparyEntryForm()
+		{
+            var shiftAssignViewModel = new ShiftAssignViewModel()
+            {
+                EmployeesViewModel = _shiftAssignRepository.GetActiveEmployee(),
+                ShiftsViewModel = _shiftAssignRepository.GetActiveShifts()
+            };
+            return shiftAssignViewModel;
+		}
+
+		public IList<ShiftAssignViewModel> RetrieveAll()
         {
             return _shiftAssignRepository.RetrieveAll();
         }
