@@ -29,21 +29,21 @@ namespace CloudHRMS.Services
 
         public ShiftViewModel PreparedEntryForm()
         {
-            var shiftViewModel = new ShiftViewModel()
+            var shiftViewModel = new ShiftViewModel
             {
-                AttendancePolicyViewsModel=_shiftRepository.GetActiveAttendancePolicies()
+                AttendancePolicy=_shiftRepository.GetActiveAttendancePolicies()
             };
             return shiftViewModel;
         }
 
         public IList<ShiftViewModel> RetrieveAll()
         {
-            throw new NotImplementedException();
+            return _shiftRepository.RetrieveAll();
         }
 
         public void Update(ShiftViewModel shiftViewModel)
         {
-            throw new NotImplementedException();
+            _shiftRepository.Update(shiftViewModel);
         }
     }
 }

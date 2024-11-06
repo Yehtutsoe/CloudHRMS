@@ -28,6 +28,11 @@ builder.Services.AddScoped<IAttendancePolicyService, AttendancePolicyService>();
 builder.Services.AddScoped<IAttendancePolicyRepository, AttendancePolicyRepository>();
 builder.Services.AddScoped<IDailyAttendanceService, DailyAttendanceService>();
 builder.Services.AddScoped<IDailyAttendanceRepository, DailyAttendanceRepository>();
+builder.Services.AddScoped<IShiftService, ShiftService>();
+builder.Services.AddScoped<IShiftRepository, ShiftRepository>();
+builder.Services.AddScoped<IShiftAssignService, ShiftAssignService>();
+builder.Services.AddScoped<IShiftAssignRepository,ShiftAssignRepository>();
+
 //builder.Services.AddScoped<IUserService, UserService>();
 var app = builder.Build();
 

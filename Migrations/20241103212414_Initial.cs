@@ -219,15 +219,15 @@ namespace CloudHRMS.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Shifts",
+                name: "Shift",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    InTime = table.Column<TimeSpan>(type: "time", nullable: false),
-                    OutTime = table.Column<TimeSpan>(type: "time", nullable: false),
-                    LateAfter = table.Column<TimeSpan>(type: "time", nullable: false),
-                    EarlyOutBefore = table.Column<TimeSpan>(type: "time", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(35)", maxLength: 35, nullable: false),
+                    InTime = table.Column<TimeSpan>(type: "time", maxLength: 10, nullable: false),
+                    OutTime = table.Column<TimeSpan>(type: "time", maxLength: 10, nullable: false),
+                    LateAfter = table.Column<TimeSpan>(type: "time", maxLength: 10, nullable: false),
+                    EarlyOutBefore = table.Column<TimeSpan>(type: "time", maxLength: 10, nullable: false),
                     AttendancePolicyId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", maxLength: 15, nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
@@ -238,9 +238,9 @@ namespace CloudHRMS.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Shifts", x => x.Id);
+                    table.PrimaryKey("PK_Shift", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Shifts_AttendancePolicy_AttendancePolicyId",
+                        name: "FK_Shift_AttendancePolicy_AttendancePolicyId",
                         column: x => x.AttendancePolicyId,
                         principalTable: "AttendancePolicy",
                         principalColumn: "Id",
@@ -314,13 +314,13 @@ namespace CloudHRMS.Migrations
                         column: x => x.DepartmentId,
                         principalTable: "Department",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_DailyAttendance_Employee_EmployeeId",
                         column: x => x.EmployeeId,
                         principalTable: "Employee",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -383,8 +383,8 @@ namespace CloudHRMS.Migrations
                 column: "PositionId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Shifts_AttendancePolicyId",
-                table: "Shifts",
+                name: "IX_Shift_AttendancePolicyId",
+                table: "Shift",
                 column: "AttendancePolicyId");
         }
 
@@ -410,7 +410,7 @@ namespace CloudHRMS.Migrations
                 name: "DailyAttendance");
 
             migrationBuilder.DropTable(
-                name: "Shifts");
+                name: "Shift");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

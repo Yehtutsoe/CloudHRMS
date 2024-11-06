@@ -20,9 +20,9 @@ namespace CloudHRMS.Repositories
         #endregion
 
         public IList<AttendancePolicyViewModel> GetActiveAttendancePolicies() {
-            return _applicationDbContext.Shifts.Where(w => w.IsActive).Select(s => new AttendancePolicyViewModel
+            return _applicationDbContext.AttendancePolicys.Where(w => w.IsActive).Select(s => new AttendancePolicyViewModel
             {
-                Id = s.AttendancePolicyId,
+                Id = s.Id,
                 Name = s.Name
             }).ToList();
         }
@@ -96,7 +96,22 @@ namespace CloudHRMS.Repositories
 
         public IList<ShiftViewModel> RetrieveAll()
         {
-            return null;
+            IList<ShiftViewModel> shift = (from s in _applicationDbContext.Shifts
+                                           join a in _applicationDbContext.AttendancePolicys
+                                           on s.Id equals a.Id
+                                           where s.IsActive & a.IsActive
+                                           select new ShiftViewModel
+                                           {
+                                               Id = s.Id,
+                                               Name = s.Name,
+                                               InTime = s.InTime,
+                                               OutTime = s.OutTime,
+                                               LateAfter = s.LateAfter,
+                                               EarlyOutBefore = s.EarlyOutBefore,
+                                               AttendancePolicyId = s.AttendancePolicyId,
+                                               AttendancePolicyInfo = a.Name
+                                           }).ToList();
+            return shift;
         }
 
         #region Update

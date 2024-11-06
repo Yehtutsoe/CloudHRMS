@@ -50,7 +50,8 @@ namespace CloudHRMS.Repositories
                         IpAddress = NetworkHelper.GetMachinePublicIP(_cache),
                         DepartmentId = employeeViewModel.DepartmentId,
                         PositionId = employeeViewModel.PositionId,
-                        UserId = employeeViewModel.UserId                    };
+                        UserId = employeeViewModel.UserId                   
+					};
 
                     _applicationDbContext.Employees.Add(employeeEntity);
                     _applicationDbContext.SaveChanges();

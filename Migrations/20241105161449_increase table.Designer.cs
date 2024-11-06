@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CloudHRMS.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241102132938_Initial")]
-    partial class Initial
+    [Migration("20241105161449_increase table")]
+    partial class increasetable
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -324,6 +324,59 @@ namespace CloudHRMS.Migrations
                     b.ToTable("Position");
                 });
 
+            modelBuilder.Entity("CloudHRMS.Models.Entities.ShiftAssignEntity", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasMaxLength(15)
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.Property<string>("EmployeeId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("FromDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("IpAddress")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasMaxLength(6)
+                        .HasColumnType("bit");
+
+                    b.Property<string>("ShiftId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("ToDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasMaxLength(15)
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(12)
+                        .HasColumnType("nvarchar(12)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EmployeeId");
+
+                    b.HasIndex("ShiftId");
+
+                    b.ToTable("ShiftAssign");
+                });
+
             modelBuilder.Entity("CloudHRMS.Models.Entities.ShiftEntity", b =>
                 {
                     b.Property<string>("Id")
@@ -343,9 +396,11 @@ namespace CloudHRMS.Migrations
                         .HasColumnType("nvarchar(15)");
 
                     b.Property<TimeSpan>("EarlyOutBefore")
+                        .HasMaxLength(10)
                         .HasColumnType("time");
 
                     b.Property<TimeSpan>("InTime")
+                        .HasMaxLength(10)
                         .HasColumnType("time");
 
                     b.Property<string>("IpAddress")
@@ -357,13 +412,16 @@ namespace CloudHRMS.Migrations
                         .HasColumnType("bit");
 
                     b.Property<TimeSpan>("LateAfter")
+                        .HasMaxLength(10)
                         .HasColumnType("time");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(35)
+                        .HasColumnType("nvarchar(35)");
 
                     b.Property<TimeSpan>("OutTime")
+                        .HasMaxLength(10)
                         .HasColumnType("time");
 
                     b.Property<DateTime?>("UpdatedAt")
@@ -378,7 +436,7 @@ namespace CloudHRMS.Migrations
 
                     b.HasIndex("AttendancePolicyId");
 
-                    b.ToTable("Shifts");
+                    b.ToTable("Shift");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -615,6 +673,25 @@ namespace CloudHRMS.Migrations
                     b.Navigation("Department");
 
                     b.Navigation("Position");
+                });
+
+            modelBuilder.Entity("CloudHRMS.Models.Entities.ShiftAssignEntity", b =>
+                {
+                    b.HasOne("CloudHRMS.Models.Entities.EmployeeEntity", "Employee")
+                        .WithMany()
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CloudHRMS.Models.Entities.ShiftEntity", "Shift")
+                        .WithMany()
+                        .HasForeignKey("ShiftId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Employee");
+
+                    b.Navigation("Shift");
                 });
 
             modelBuilder.Entity("CloudHRMS.Models.Entities.ShiftEntity", b =>

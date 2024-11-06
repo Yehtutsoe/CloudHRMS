@@ -1,4 +1,4 @@
-﻿@model ShiftViewModel
+﻿@model ShiftViewModel;
 
 <h1>Shift Entry Form</h1>
 <form action="/shift/Entry" method="post">
@@ -25,12 +25,12 @@
         <input type="time" name="EarlyOutBefore" class="form-control" placeholder="Enter Early Out Before" />
     </div>
     <div class="mb-3">
-        <label for="AttendancePolicy" class="form-lable">Attendance Policy</label>
+        <label for="AttendancePolicy" class="form-label">Attendance Policy</label>
         <select class="form-select" id="AttendancePolicy" name="AttendancePolicyId">
             <option selected>[Select One]</option>
-            @foreach (var attendancePolicy in Model.AttendancePolicyViewsModel)
+            @foreach(var attendacncePolicy in Model.AttendancePolicy)
             {
-                <option value="@attendancePolicy.Id">@attendancePolicy.Name</option>
+               <option value="@attendacncePolicy.Id">@attendacncePolicy.Name</option>
             }
         </select>
     </div>

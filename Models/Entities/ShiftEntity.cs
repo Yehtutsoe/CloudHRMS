@@ -7,6 +7,7 @@ namespace CloudHRMS.Models.Entities
     [Table("Shift")]
     public class ShiftEntity:BaseEntity
     {
+        public  string Id { get; set; }
         [MaxLength(35)]
         public string Name { get; set; }
         [MaxLength(10)]
@@ -17,7 +18,6 @@ namespace CloudHRMS.Models.Entities
         public TimeSpan LateAfter { get; set; }
         [MaxLength(10)]
         public TimeSpan EarlyOutBefore { get; set; }
-        [MaxLength(40)]
         public string AttendancePolicyId { get; set; }
         [ForeignKey(nameof(AttendancePolicyId))]
         public AttendancePolicyEntity AttendancePolicy { get; set; }

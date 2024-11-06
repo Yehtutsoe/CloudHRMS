@@ -1,8 +1,12 @@
-﻿@model IList<ShiftViewModel>
+﻿<head>
+    <!--for JQuery plugin-->
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+</head>
+@model IList<ShiftViewModel>
 
 <table class="table table-hover">
 
-    <thead>
+    <thead class="table-dark" id="shiftTable">
         <tr>
             <th scope="col">No</th>
             <th scope="col">Name</th>
@@ -10,12 +14,17 @@
             <th scope="col">Out Time</th>
             <th scope="col">Late After</th>
             <th scope="col">Early Out Before</th>
-            <th scope="col">Action</th>
+            <th scope="col">Attendance Policy</th>
+            @if (User.IsInRole("HR"))
+            {
+                <th scope="col">Action</th>
+            }
+           
         </tr>
      </thead>
     <tbody>
         @{
-            var i = 1;
+            int i = 1;
         }
         @foreach(var shift in Model)
         {
@@ -26,11 +35,22 @@
                 <td>@shift.OutTime</td>
                 <td>@shift.LateAfter</td>
                 <td>@shift.EarlyOutBefore</td>
+                <td>@shift.AttendancePolicyInfo</td>
                 <td>
+                     @if(User.IsInRole("HR")){
                     <a href="/shift/Edit?id=@shift.Id" class="btn btn-primary">Edit</a>
                     <a href="/shift/Delete?id=@shift.Id" class="btn btn-danger">Delete</a>
+                    }
                 </td>
+                
+               
             </tr>
-        }
+            i++;
+        }    
     </tbody>
 </table>
+<script>
+    $(document).ready(function () {
+        $('#shiftTable').DataTable()
+    });
+</script>
