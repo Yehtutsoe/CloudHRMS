@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+<!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="utf-8" />
@@ -23,6 +26,9 @@
 						<li class="nav-item">
 							<a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
 						</li>
+						<!--
+
+						
 						<li>
 							<div class="dropdown me-1">
 								<button class="btn btn-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -100,6 +106,32 @@
 								</ul>
 							</div>
 						</li>
+						For Dropdown-menu
+					-->
+						@if (SignInManager.IsSignedIn(User))
+						{
+							<li class="nav-item">
+								<a class="nav-link text-white" asp-area="" asp-controller="Position" asp-action="List">Position</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link text-white" asp-area="" asp-controller="Department" asp-action="List">Department</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link text-white" asp-area="" asp-controller="Employee" asp-action="List">Employee</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link text-white" asp-area="" asp-controller="Shift" asp-action="List">Shift</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link text-white" asp-area="" asp-controller="ShiftAssign" asp-action="List">Shift Assign</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link text-white" asp-area="" asp-controller="AttendancePolicy" asp-action="List">Attendance Policy</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link text-white" asp-area="" asp-controller="DailyAttendance" asp-action="List">Daily Attendance</a>
+							</li>
+						}
 						<li class="nav-item">
 							<partial name="_LoginPartial" />
 						</li>

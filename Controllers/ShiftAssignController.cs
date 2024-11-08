@@ -27,7 +27,8 @@ namespace CloudHRMS.Controllers
 
         public IActionResult List()
         {
-            return View(_shiftAssignService.RetrieveAll());
+            var shiftAssign = _shiftAssignService.RetrieveAll();
+            return View(shiftAssign);
         }
         [Authorize(Roles ="HR")]
         public IActionResult Edit(string Id)

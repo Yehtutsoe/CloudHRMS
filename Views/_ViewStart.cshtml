@@ -3,9 +3,12 @@
 {
     Layout = "_LayoutHR";
 }
-else
+else if(User.IsInRole("Employee"))
 {
   
     Layout = "_Layout";
  
+}
+else {
+    Layout = "_LayoutPublic";
 }

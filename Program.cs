@@ -32,6 +32,8 @@ builder.Services.AddScoped<IShiftService, ShiftService>();
 builder.Services.AddScoped<IShiftRepository, ShiftRepository>();
 builder.Services.AddScoped<IShiftAssignService, ShiftAssignService>();
 builder.Services.AddScoped<IShiftAssignRepository,ShiftAssignRepository>();
+builder.Services.AddScoped<IAttendanceMasterService, AttendanceMasterService>();
+builder.Services.AddScoped<IAttendanceMasterRepository,AttendanceMasterRepository>();
 
 //builder.Services.AddScoped<IUserService, UserService>();
 var app = builder.Build();

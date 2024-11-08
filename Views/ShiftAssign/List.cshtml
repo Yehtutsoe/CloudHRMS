@@ -9,10 +9,10 @@
     <thead class="table-dark" >
         <tr>
             <th scope="col">No</th>
-            <th scope="col">From Date</th>
-            <th scope="col">To Date</th>
             <th scope="col">Employee</th>
             <th scope="col">Shift</th>
+            <th scope="col">From Date</th>
+            <th scope="col">To Date</th>
             <th scope="col">Action</th>
         </tr>
     </thead>
@@ -24,10 +24,10 @@
         {
             <tr>
                 <td scope="row">@i</td>
-                <td>@shiftAssign.FromDate.ToString("MM-dd-yyyy")</td>
-                <td>@shiftAssign.ToDate.ToString("MM-dd-yyyy")</td>
                 <td>@shiftAssign.EmployeeInfo</td>
                 <td>@shiftAssign.ShiftInfo</td>
+                <td>@shiftAssign.FromDate.ToString("MM-dd-yyyy")</td>
+                <td>@shiftAssign.ToDate.ToString("MM-dd-yyyy")</td>
                 <td>
                     <a href="/shiftAssign/Edit?id=@shiftAssign.Id" class="btn btn-primary">Edit</a>
                     <a href="/shiftAssign/Delete?id=@shiftAssign.Id" class="btn btn-danger" onclick="confirm('Are you sure want to Delete')">Delete</a>
