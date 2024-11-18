@@ -127,7 +127,7 @@ namespace CloudHRMS.Repositories
 												  on e.DepartmentId equals d.Id
 												  join p in _applicationDbContext.Positions
 												  on e.PositionId equals p.Id
-												  where e.IsActive & d.IsActive & p.IsActive
+												  where e.IsActive && d.IsActive && p.IsActive
 												  select new EmployeeViewModel
 												  {
 													Id= e.Id,

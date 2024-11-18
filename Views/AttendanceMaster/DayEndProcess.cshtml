@@ -8,7 +8,7 @@
             <option value="x" selected>[select department]</option>
             @foreach (var d in Model.DepartmentViewModels)
             {
-                <option value="@d.Id">@d.Description</option>
+                <option value="@d.Id">@d.Code</option>
             }
         </select>
     </div>
@@ -18,7 +18,7 @@
             <option value="x" selected>[select employee]</option>
             @foreach (var e in Model.EmployeeViewModels)
             {
-                <option value="@e.Id">@e.No / @e.FullName</option>
+                <option value="@e.Id">@e.FullName</option>
             }
         </select>
     </div>

@@ -1,0 +1,28 @@
+﻿@model PayrollProcessViewModel
+
+<h3>Payroll Process Form</h3>
+<form action="/payroll/payrollprocess" method="post">
+    <div class="mb-3">
+        <label class="form-label" for="FromDate">From Date</label>
+        <input type="date" class="form-control" name="FromDate" placeholder="Select Date" required/>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="ToDate">To Date</label>
+        <input type="date" class="form-control" name="ToDate" placeholder="Select Date" required/>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="DepartmentId">Department</label>
+        <select class="form-select" name="DepartmentId">
+            <option value="" selected>[Select One]</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="EmployeeId">Employee</label>
+        <select class="form-select" name="EmployeeId">
+            <option value="" selected>[Select One]</option>
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Calculate Payroll</button>
+    <button class="btn btn-warning" type="reset">Cancel</button>
+</form>

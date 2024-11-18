@@ -62,8 +62,8 @@ namespace CloudHRMS.Repositories
 		{
 			IList<ShiftViewModel> shift = (from s in _applicationDbContext.Shifts
 										   join a in _applicationDbContext.AttendancePolicys
-										   on s.Id equals a.Id
-										   where s.IsActive & a.IsActive
+										   on s.AttendancePolicyId equals a.Id
+										   where s.IsActive && a.IsActive
 										   select new ShiftViewModel
 										   {
 											   Id = s.Id,

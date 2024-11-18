@@ -1,17 +1,22 @@
 ﻿using CloudHRMS.DAO;
 using CloudHRMS.Models.Entities;
 using CloudHRMS.Models.ViewModels;
+using CloudHRMS.Utility.NetworkHelper;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace CloudHRMS.Repositories
 {
 	public class AttendanceMasterRepository : IAttendanceMasterRepository
 	{
 		private readonly ApplicationDbContext _applicationDbContext;
-
-		public AttendanceMasterRepository(ApplicationDbContext applicationDbContext)
+		private readonly IMemoryCache _cache;
+		public AttendanceMasterRepository(ApplicationDbContext applicationDbContext,IMemoryCache cache)
         {
 			_applicationDbContext = applicationDbContext;
-		}
+			_cache = cache;
+        }
+
+        public IMemoryCache Cache { get; }
         #region DayEndProcess
         public void DayEndProcess(AttendanceMasterViewModel attendanceMasterViewModel)
 		{
@@ -34,7 +39,9 @@ namespace CloudHRMS.Repositories
 					AttendanceMasterEntity attendanceMaster = new AttendanceMasterEntity();
 					attendanceMaster.Id = Guid.NewGuid().ToString();
 					attendanceMaster.CreatedAt = DateTime.Now;
+					attendanceMaster.CreatedBy = "System";
 					attendanceMaster.IsLeave = false;
+					attendanceMaster.IpAddress = NetworkHelper.GetMachinePublicIP(_cache);
 					attendanceMaster.InTime = data.dailyAttendances.InTime;
 					attendanceMaster.OutTime = data.dailyAttendances.OutTime;
 					attendanceMaster.EmployeeId = data.dailyAttendances.EmployeeId;
@@ -43,7 +50,7 @@ namespace CloudHRMS.Repositories
 					attendanceMaster.AttendanceDate = data.dailyAttendances.AttendanceDate;
 
 					// checking In Time
-					if(data.dailyAttendances.InTime > defineShift.LateAfter)
+					if(data.dailyAttendances.InTime > defineShift.LateAfter) // 9:15 >= 9:10 
 					{
 						attendanceMaster.IsLate = true;
 					}
@@ -52,7 +59,7 @@ namespace CloudHRMS.Repositories
 						attendanceMaster.IsLate = false;
 					}
 						// Cheching Out Time
-					if (data.dailyAttendances.OutTime < defineShift.EarlyOutBefore)
+					if (data.dailyAttendances.OutTime < defineShift.EarlyOutBefore) // 5:00 <= 4:50
 					{
 						attendanceMaster.IsEarlyOut = true;
 					}
@@ -62,20 +69,22 @@ namespace CloudHRMS.Repositories
 					}
 					attendanceMasterEntities.Add(attendanceMaster);
 				}
-				_applicationDbContext.AttendanceMasters.AddRange(attendanceMasterEntities);
-				_applicationDbContext.SaveChanges();
-			}
-		}
+				
+			} // End of foreach
+            _applicationDbContext.AttendanceMasters.AddRange(attendanceMasterEntities);
+            _applicationDbContext.SaveChanges();
+        }
         #endregion
 
         #region GetActiveView
         public IList<DepartmentViewModel> GetActiveDeparment()
         {
-                return _applicationDbContext.Departments.Where(w => w.IsActive).Select(s => new DepartmentViewModel
-                {
-                    Id = s.Id,
-                    Code = s.Code
-                }).ToList();
+			return _applicationDbContext.Departments.Where(w => w.IsActive).Select(s => new DepartmentViewModel
+			{
+				Id = s.Id,
+				Code = s.Code + "|" + s.Description
+
+			}).ToList();
             
         }
 
@@ -84,7 +93,7 @@ namespace CloudHRMS.Repositories
             return _applicationDbContext.Employees.Where(w => w.IsActive).Select(s => new EmployeeViewModel
             {
                 Id = s.Id,
-                FullName = s.FullName
+                FullName = s.No + "|" + s.FullName
             }).ToList();
         }
 
@@ -114,7 +123,7 @@ namespace CloudHRMS.Repositories
 										OutTime = am.OutTime,
 										IsLate = am.IsLate,
 										IsEarlyOut = am.IsEarlyOut,
-										DepartmentId = d.Id + "|" + d.Description,
+										DepartmentId =d.Description,
 										EmployeeId = e.No + "|" + e.FullName,
 										ShiftId = s.Name
 

@@ -96,10 +96,10 @@ namespace CloudHRMS.Repositories
         {
             IList<ShiftAssignViewModel> shiftAssings = (from sa in _applicationDbContext.ShiftAssigns
                                                             join e in _applicationDbContext.Employees
-                                                            on sa.Id equals e.Id
+                                                            on sa.EmployeeId equals e.Id
                                                             join s in _applicationDbContext.Shifts
-                                                            on sa.Id equals s.Id
-                                                            where sa.IsActive & e.IsActive & s.IsActive
+                                                            on sa.ShiftId equals s.Id
+                                                            where sa.IsActive && e.IsActive && s.IsActive
                                                             select new ShiftAssignViewModel
                                                             { 
                                                              Id = sa.Id, 
