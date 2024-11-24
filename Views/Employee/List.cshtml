@@ -61,7 +61,7 @@
 				<td>@employee.Phone</td>
 				<td>@employee.DOB.ToString("dd-MM-yyyy")</td>
 				<td>@employee.DOE?.ToString("dd-MM-yyyy")</td>
-				<td>@(employee.DOR?.ToString("dd-MM-yyyy"))</td>
+				<td>@employee.DOR?.ToString("dd-MM-yyyy")</td>
 				<td>@employee.Address</td>
 				<td>
 					<a href="/Employee/Edit?id=@employee.Id" class="btn btn-success">Edit</a>
